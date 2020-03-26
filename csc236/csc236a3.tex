@@ -1,0 +1,325 @@
+% TODO
+% To solve:
+% To type:
+% Done:
+% - 1
+% - 2
+% - 3
+% - 4
+% Misc:
+% - 1: check over solution
+% - 2: check over solution
+% - 4: check over solution
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows, automata, fit}
+\tikzset{shorten >=1pt,node distance=2cm,auto,initial text=,accepting/.style={accepting by double, thick}, bend angle=45}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{courier}
+
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegrey}{rgb}{0.75,0.75,0.75}
+\definecolor{identifiers}{rgb}{0.2,0.2,0.2}
+\definecolor{commentgrey}{rgb}{0.2,0.2,0.2}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{commentgrey},
+    keywordstyle=\bfseries\color{codegreen},
+    numberstyle=\tiny\color{codegrey},
+    stringstyle=\color{red},
+    identifierstyle=\color{black},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+\usepackage{enumitem}
+\setlist{topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Chang, Gurditta}
+\rhead{CSC236 Assignment 3}
+
+\newcommand{\BigO}{\mathcal{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\Lang}{\mathcal{L}}
+\newcommand{\Kast}{^\circledast}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\centernot \mid}
+\newcommand{\cleft}{\mathopen{}\mathclose\bgroup\left}
+\newcommand{\cright}{\aftergroup\egroup\right}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ds}{\displaystyle}
+
+\newcommand{\supth}{\textsuperscript{th}}
+
+
+\title{CSC236 - Assignment 3}
+
+\author{Ryan Chang, Rikin Gurditta} 
+\date{December 5, 2019}
+
+\begin{document}
+\maketitle
+\newpage
+\section*{Question 1}
+\subsection*{(a)}
+ 
+Let $LI(k)$: If the loop has iterated at least $k$ times, then
+\begin{enumerate}[label=(\arabic{enumi})]
+    \item $a = b \cdot q_k + r_k$
+    \item $0 \leq q_k \leq a$ where $k \in \N$.
+    \item $0 \leq r_k$
+\end{enumerate}
+
+
+%NOTE TO RIKIN: in this problem we dont need to prove whether the LI is correct. but i did it anwyays and ssent it to you as a way to guide me thru the problem. so take a look if u think LI is wrong.
+    
+\subsection*{(b)}
+
+In order to prove partial correctness we will assume the precondition of the program holds and the loop terminates after $t$ iterations and prove the postconditions of the program hold. That is, we will prove that:
+\begin{enumerate}[label=(\arabic{enumi})]
+    \item $a = b \cdot q + r$
+    \item $q \geq 0$
+    \item $0 \leq r \leq b$
+\end{enumerate}
+
+\hfill
+
+By part (1) of $LI(t)$, $a = r_t + q_t \cdot b$, so part (1) of the postcondition holds. (Since $q_t$ and $r_t$ are returned as $[q, r]$ on line 6, the postcondition is met on the output.)
+% NOTE TO RYAN:
+% - wasn't sure if we needed to talk about the output, doesn't seem like they do that in the examples
+
+By part (2) of $LI(t)$, $0 \leq q_t$, so part (2) of the postcondition holds.
+% NOTE TO RYAN:
+% - you discussed how q starts at 0 and only increases, but i don't think that's necessary if q >= is part of our loop invariant
+
+Since the loop has terminated, $\neg (r_t$ $\geq$ $b)$ must hold, so $r_t < b$. Since the loop condition held for $r_{t-1}$, we know that $r_{t-1} \geq b$. By line 5, $r_t = r_{t-1} - b$, so $r_t - b \geq b - b = 0$. Thus, $0 \leq r_t < b$, so part (3) of the postcondition holds.
+
+Thus, the postcondition holds given that the loop terminates after $t$ iterations.
+
+\subsection*{(c)}
+In order to prove termination we will assume the precondition of the program holds and prove program terminates. In other words we will show that the loop measure is a natural number and that it decreases with every iteration.
+
+Let loop measure: $m_k = \ceil{a/b} - q_k$, then
+\begin{align*}
+    m_k &= \ceil{a/b} - (q_{k-1} + 1) \tag{by line 4} \\
+    m_k &= \ceil{a/b} - q_{k-1} - 1 \\
+    m_k &= m_{k-1} - 1 \tag{by definition of $m_{k-1}$} \\
+    m_k &< m_{k-1}
+\end{align*}
+
+Assuming that the loop invariant is correct,
+\begin{align*}
+    a &= b \cdot q_k + r_k \\
+    (a - r_k)/b &= q_k \\
+    r_k/b &= a/b - q_k \\
+    0 \leq r_k/b &= a/b - q_k \leq \ceil{a/b} - q_k = m_k \tag{since by $LI(k)$, $r_k \geq 0$}
+\end{align*}
+
+So $0 \leq m_k$.
+
+Thus, for all $k$, $m_k \in \N$ and is strictly decreasing, so the loop terminates.
+
+
+\newpage
+\section*{Question 2}
+
+First, a lemma.
+
+Consider the algorithm:
+\begin{lstlisting}[language=Python, firstnumber=0]
+def Partition(A, s, e):
+    i = s
+    j = s
+    while j < e:
+        if A[j] < A[e]:
+            swap A[i] with A[j]
+            i = i + 1
+        j = j + 1
+    swap A[i] with A[e]
+    return i
+\end{lstlisting}
+% can remove code block and replace with reference to beginning of Sort if more space is needed
+
+\noindent This algorithm's preconditions are the same as for $Sort$, and its postcondition is:
+\begin{enumerate}[label=(\arabic{enumi})]
+    \item $i \in \N$ is returned where $s \leq i \leq e$
+    \item $A$ is mutated so that for all $p \in \N$, if $s \leq p < i$ then $A[p] < A[i]$ and if $i \leq p < e+1$, then $A[p] \geq A[i]$.
+\end{enumerate}
+We prove this below:
+
+\hfill
+
+\noindent \textbf{\textit{Loop invariant:}}
+
+\noindent Let $LI(k):$ ``if the loop has iterated at least $k$ times, then:
+\begin{enumerate}[label=(\arabic{enumi})]
+    \item for all $p \in \N$, if $s \leq p < i_k$ then $A[p] < A[e]$ and if $i_k \leq p < j_k$ then $A[p] \geq A[e]$
+    \item $s \leq i_k \leq j_k \leq e$"
+\end{enumerate} where $k \in \N$.
+
+\noindent We will now prove the correctness of this loop invariant.
+
+\noindent \textbf{Base case:}
+
+If $k = 0$, then the loop has not executed yet so by lines 1 and 2, $j_k = i_k = s$. Then there does not exist any $p$ so that $s \leq p < i_k$ or $i_k \leq p < j_k$, so $LI(k)$ vacuously.
+
+\noindent \textbf{Inductive step:}
+
+Suppose $LI(k)$ for some $k \in \N$.
+
+Suppose the $k+1$\supth\     iteration exists, then the loop condition must hold after $k$ iterations, so $j_k < e$. By line 7, $j_{k+1} = j_k + 1 \leq e$. By the IH, $s \leq j_k$. Thus, $s \leq j_{k+1} \leq e$. If the if statement on line 4 is executed, then $i_{k+1} = i_k + 1$, otherwise $i_{k+1} = i_k$. Either way, by the IH $i_k \leq j_k$ so $i_{k+1} \leq i_k + 1 \leq  j_k + 1 = j_{k+1}$. Thus, part (2) of the LI holds.
+
+Since $j_k < e$, $A[j_k]$ is well defined. Suppose $A[j_k] < A[e]$. Then the if statement on line 4 is entered, so $A[i_k]$ and $A[j_k]$ are swapped. Now $A[i_k] < A[e]$. By part (1) of the IH, before the swap $A[i_k] \geq A[e]$, so now $A[j_k] \geq A[e]$. Thus, for all $p$ where $s \leq p \leq i_k$, $A[p] < A[e]$, and for all $p$ where $i_k < p \leq j_k$, $A[p] \geq A[e]$. By lines 6 and 7, $i_{k+1} = i_{k} + 1$ and $j_{k+1} = j_k + 1$. Thus we can rewrite that statement as $s \leq p < i_{k+1} \Rightarrow A[p] < A[e]$, and $i_{k+1} \leq p < j_{k+1} \Rightarrow A[p] \geq A[e]$, so part (1) of the LI also holds.
+
+Suppose $A[j_k] \geq A[e]$. Then since the if statement is not executed $i_{k+1} = i_k$, and by line 7 $j_{k+1} = j_k + 1$. Since $i$ has not changed, by the IH, for all $p \in \N$, if $s \leq p < i_{k+1}$ then $A[p] < A[e]$, and if $i_{k+1} \leq p < j_k$, then $A[p] \geq A[e]$. Since in this case, $A[k_{k}] \geq A[e]$, we can extend this to say that $i_{k+1} \leq p < j_{k+1} \Rightarrow A[p] \geq A[e]$, as required for part (1) of the LI.
+
+Thus, by the principle of mathematical induction, the loop invariant is correct.
+
+\noindent \textbf{\textit{Partial correctness:}}
+
+As permitted in the assignment, we will assume that the loop terminates after $t$ iterations.
+
+Since the loop has terminated, the loop condition does not hold, so $j_t \geq e$. By the loop invariant, $j_t \leq e$ as well, so we can conclude that $j_t = e$.
+
+Using part (1) of the loop invariant and the fact that $j_t = e$, we know that $s \leq p < i_t \Rightarrow A[p] < A[e]$ and $i_t \leq p < e \Rightarrow A[p] \geq A[e]$. Since $A[e] \geq A[e]$, we can further say that $i_t \leq p < e+1 \Rightarrow A[p] \geq A[e]$. $i_t \geq i_t$ and $e \geq i_t$ (by loop invariant), so the statement above still holds after $A[i]$ and $A[e]$ are swapped on line 8. Thus, part (2) of the postcondition holds. By the loop invariant, part (1) also holds. Thus, $Partition$ is correct assuming its preconditions and termination.
+
+\hfill
+
+\hrule
+
+\hfill
+
+\noindent For the proof of its correctness, it is useful to rewrite $Sort$ as:
+\begin{lstlisting}[language=Python, firstnumber=0]
+def Sort(A, s, e):
+    if e > s:
+        i = Partition(A, s, e)
+        if s < i-1:
+            Sort(A, s, i-1)
+        if i+1 < e:
+            Sort(A, i+1, e)
+\end{lstlisting}
+
+Let $P(n)$: ``The postconditions hold for $Sort(A, s, e)$ for all $A$, $s$, $e$ which satisfy the preconditions and $e - s = n$" where $n \in \N$.
+
+\noindent \textbf{Base case:}
+
+Let $n = 0$, aka $s = e$. Then the condition on line 1 is not met, so nothing happens. Since $A[s,s]$ has no items in it, it is vacuously sorted, so $P(0)$.
+
+\noindent \textbf{Inductive step:}
+
+Suppose for some $n \in \N$, for all $k \in \N$ where $0 \leq k \leq n$, $P(k)$ holds. Suppose $e - s = n + 1$.
+
+Clearly $e - s > 0$, so $e > s$, so the condition on line 1 is met. By the postconditions of $Partitions$, every item in $A$ before the $i$\supth is less than the $i$\supth, and every item after the $i$\supth is greater than or equal to the $i$\supth.
+
+If $s < i-1$, then $A[s:i-1]$ is non-empty, and by the IH, it is sorted on line 4. Otherwise, $s \geq i - 1$. By the postconditions on $Partition$, $s \leq i$, so either $s = i$ or $s = i - 1$. In these cases, $A[s:i-1]$ is sorted since empty lists and lists with one element are both trivially sorted.
+
+If $i+1 < e$, then $A[i+1:e+1]$ is non-empty, and by the IH, it is sorted on line 6. If $i+1 \geq e$, then by similar reasoning to the above case about $A[s:i]$, $A[i+1:e+1]$ is sorted.
+
+Thus $A[s:i-1]$ is sorted and and all of its items are less than $A[i]$, and $A[i+1:e+1]$ is sorted and all of its elements are greater than or equal to $A[i]$. As a result, $A[s:e+1]$ is sorted.
+
+By the principle of induction, $Sort$ is correct.
+
+\hfill $\square$
+
+
+\newpage
+\section*{Question 3}
+
+\begin{align*}
+    f(n) &= 2f(n-1) - f(n-2) + 1 \tag{$i = 1$} \\
+    &= 2(2f(n-2) - f(n-3) + 1) - f(n-2) + 1 \\
+    &= 4f(n-2) - 2f(n-3) + 2 - f(n-2) + 1 \\
+    &= 3f(n-2) - 2f(n-3) + 3 \tag{$i = 2$} \\
+    &= 3(2f(n-3) - f(n-4) + 1) - 2f(n-3) + 3 \\
+    &= 6f(n-3) - 3f(n-4) + 3 - 2f(n-3) + 3 \\
+    &= 4f(n-3) - 3f(n-4) + 6 \tag{$i = 3$} \\
+    &= 4(2f(n-4) - f(n-5) + 1) - 3f(n-4) + 6 \\
+    &= 8f(n-4) - 4f(n-5) + 4 - 3f(n-4) + 6 \\
+    &= 5f(n-4) - 4f(n-5) + 10 \tag{$i = 4$} \\
+    &= (i+1) \cdot f(n-i) - i \cdot f(n-(i+1)) + \frac{i \cdot (i+1)}{2}\tag{in terms of $i$}
+\end{align*}
+
+\text{Since when $n-i = 1$ the function has hit its base case and $n-i = 1 \Rightarrow n-(i+1) = 0$},
+\begin{align*}
+    f(n) &= (i+1) \cdot f(n-i) - i \cdot f(n-(i+1)) + \frac{i \cdot (i+1)}{2} \\
+    &= (i+1) \cdot f(1) - i \cdot f(0) + \frac{i \cdot (i+1)}{2} \\
+    &= (i+1) \cdot b - i \cdot a + \frac{i \cdot (i+1)}{2}\\
+    &= (n) \cdot b - (n-1) \cdot a + \frac{(n-1) \cdot n}{2}\tag{Since $i + 1 = n$}
+\end{align*}
+
+
+\newpage
+\section*{Question 4}
+
+The size of the input to $maj(A, a, b)$ is $b - a + 1$. 1 is added because in the function the value of the $b$\supth{} index is iterated over, so the $b$\supth{} item must be counted when determining size.
+
+\hfill
+
+Let $n$ be the size of the call, so $n = l + 1 - f$.
+
+Lines 1, 2, 3, 5, 6, 8, 9, 10, 11, and 12 all take constant time, so we will assign constants $c_1$, $c_2$, $c_{11}$, $c_{12}$ for the runtimes of lines 1, 2, 11, 12, respectively, $a$ for the runtime of lines 3, 5, 6, and $b$ for the runtime of lines 8, 9, 10.
+    
+If $n = 1$ then $f = l$, so only lines 1 and 2 are run, so the runtime is $c_1 + c_2$.
+
+If $n > 1$, then $maj$ calls itself on line 4 with input of size $m - f + 1$.
+\begin{align*}
+    m - f + 1 &= \floor{(f + l) / 2} - f + 1 \\
+    &= \floor{f - f + (f + l) / 2} - f + 1 \\
+    &= \floor{(l - f) / 2} + f - f + 1 \\
+    &= \floor{(l - f) / 2} + 1
+\end{align*}
+Since $len(A[f:l + 1])$ is a power of 2, $(l + 1 - f) / 2 = n / 2$ is an integer, so $\floor{(l - f) / 2}$ is the integer below it, so $\floor{(l - f) / 2} + 1 = n / 2$. Thus, the size of the recursive call is $n / 2$, so its runtime is $T\cleft(\frac{n}{2}\cright)$.
+
+In the worst case, line 12 is not executed so $maj$ also calls itself on line 13 with size $l - (m + 1) + 1$. 
+\begin{align*}
+    l - (m + 1) + 1 &= l - \floor{(f + l) / 2} - 1 + 1 \\
+    &= l - \floor{f - f + (f + l) / 2} \\
+    &= l - f - \floor{(l - f) / 2} \\
+    &= n - 1 - \floor{-1 + 1 + (n - 1) / 2} \\
+    &= n - 1 - \left(-1 + \floor{(n + 1) / 2}\right) \\
+    &= n - \floor{(n + 1) / 2}
+\end{align*}
+Since $n$ is a power of 2, $n + 1$ is only a power of 2 if $n + 1 = 2n$ aka $n = 1$, which we assumed to be false. Thus, $n + 1$ is not a power of 2, so $\floor{(n + 1) / 2} = n / 2$. Thus, the size of the input to this recursive call is $n - n/2 = n/2$, so this call also has a runtime of $T\cleft(\frac{n}{2}\cright)$.
+
+Between these recursive calls, there is a while loop. $i$ starts at $f$ and increases by 1 until the loop condition is not met, so at termination $i$ is the smallest integer so that $i > l$, so $i = l + 1$. Therefore the while loop iterates $l + 1 - f = n$ times. Each iteration of the loop has a runtime of $b$, so the loop has runtime $nb$.
+
+Lastly, if $n > 1$, then lines 1, 3, 5, 6, 11 are executed, so a cost of $c_1 + a + c_{11}$ is added.
+
+Combining all of these runtimes, we know that $T(n)$ satisfies the recurrence relation:
+\[
+T(n) = \begin{cases}
+c_1 + c_2, &\text{if } n = 1 \\
+2T\cleft(\frac{n}{2}\cright) + nb + c_1 + b + c_{11}, &\text{otherwise}
+\end{cases}
+\]
+
+\noindent If $c = 2$, $d = 2$, and $k = 1$, then the recursive case of the relation is $T(n) = cT(n/d) + \Theta(n^k)$. $\log_d c = \log_2 2 = 1 = k$, so by the Master Theorem, $T(n) \in \BigO(n \log n)$.
+
+\end{document}

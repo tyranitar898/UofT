@@ -1,0 +1,218 @@
+% TODO
+% To solve:
+% - 2
+% To type:
+% - 1
+% Done:
+% - 3
+% - 4
+% Misc:
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{courier}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Chang, Gurditta}
+\rhead{CSC236 Problem Set 1}
+
+\newcommand{\BigO}{\mathcal{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\centernot \mid}
+\newcommand{\cleft}{\mathopen{}\mathclose\bgroup\left}
+\newcommand{\cright}{\aftergroup\egroup\right}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ds}{\displaystyle}
+
+
+\title{CSC236 - Problem Set 1}
+
+\author{Ryan Chang, Rikin Gurditta} 
+\date{October 13, 2019}
+
+\begin{document}
+\maketitle
+
+\newpage
+\section*{Problem 1}
+
+\noindent For a graph $G$ with vertices that belong in $V$ and edges that belong in $E$. We denote this graph as $G = <V,E>$
+
+Define $P(n)$: for all non-empty, undirected, simple graphs $G$ with $n$ vertices, if $\exists u \in V$ s.t. $d_G(u) = |V| - 1$ then $G$ is connected.
+
+\noindent WTP: $\forall n \in N, P(n)$.
+
+\noindent \textbf{Base case:}
+
+Let $|V| = 0$, then the graph is empty so $P(0)$ holds vacuously.
+
+Let $n = 1$. There is only one simple graph with one vertex, and it does not have any edges, so the degree of the one vertex is $0 = |V| - 1$. This graph is also connected, so $P(1)$ holds.
+
+\noindent \textbf{Inductive step:}
+
+Let n be an arbitrary natural number. Assume $P(n)$, so for any (non-empty, undirected and simple) graph $G = <V, E>$ with $|V| = n$, assume that $\exists u \in V$ s.t. $d_G(u) = n - 1$. and that $G$ is connected.
+
+Let be $H = <V', E'>$ be a arbitrary non-empty, undirected and simple graph with $n + 1$ vertices, where $\exists u \in V'$ s.t. $d_{H}(u) = |V'| - 1 = n$. Since $d_{H}(u) = |V'| - 1$ and in a simple graph there can only be one edge between any two vertices, $u$ is adjacent to every vertex in $H$.
+
+Let $s$ be any vertex in $H$ other than $u$, let $G = <V, E>$ be the graph created by removing $s$ and all edges connected to it from $H$.
+
+Since every vertex in $H$ except for $s$ is also in $G$ and has the same adjacencies, $u$ is also in $G$ and is adjacent to every vertex in $G$, so it has degree $|V| - 1 = n - 1$. Thus, $G$ is a graph with $n$ vertices and a vertex with degree $n - 1$, so by the IH, $G$ is connected.
+
+Since G is connected, we know that there exists a path from $u$ to any other vertex in $G$, therefore there is a path from $u$ to any vertex in $H$ other than $s$. Since $s$ is adjacent to $u$, we know that there exists a path from $s$ to $u$ in H. Therefore we can make a path from $s$ to any vertex $v$ in $H$ by making a path from $s$ to $u$ and then from $u$ to $v$. Furthermore, any vertex $v$ other than $s$ can reach $s$ by following its path to $u$ and then reach $s$. Thus, every pair of vertices in $H$ is connected, which means $H$ is connected.
+
+Since $H$ was arbitrary, $P(n+1)$ holds.
+
+So by the Principle of Induction, $\forall n \in \N, P(n)$.
+
+\hfill $\square$
+
+\newpage
+\section*{Problem 2}
+
+\noindent For a game with players $P = \{p_1, p_2, ... p_n\}$:
+
+Define $Wet: P \to \N$ where $Wet(p)$ is the number of water balloons thrown at $p$.
+
+Define $d: P^2 \to R$ such that $d(p_i, p_j)$ is the distance between $p_i$ and $p_j$.
+
+\noindent \textbf{First, a lemma:} Every game of more than 2 players has a pair of players that hit each other with water balloons.
+
+Suppose we have a game with a set of $n \geq 2$ players $P = \{p_1, p_2, ... p_n\}$.
+
+Define $S = \{ d(p_1, p_2) : \text{$p_1$ and $p_2$ are players in the game} \}$.
+
+Since S is a finite set of real numbers, it has a least element, and therefore
+\( \exists p_1, p_2 \in P, \forall p_3, p_4 \in P \text{ s.t. } d(p_1, p_1) \leq d(p_3, p_4) \)
+
+Since the distance between $p_1$ and $p_2$ is the least of all distances, $p_1$'s closest neighbour is $p_2$ and $p_2$'s closest neighbour is $p_1$, so $p_1$ and $p_2$ will hit each other.
+
+Since $n$ and the game were arbitrary, we know that for any game with $n \geq 2$ players, there exists a pair of players that hit each other with water balloons. 
+
+\hfill
+
+\hrule
+
+\hfill
+
+Let $P(n)$ be the predicate ``if $n$ is odd, then any game with $n$ players will have at least one survivor" for $n \in \N$.
+
+\noindent \textbf{Base case:}
+
+Let $n = 0$. Since 0 is even, $P(0)$ holds vacuously.
+
+Let $n = 1$. Since there is only one player in the game, that player will not be thrown at by anyone. Thus, the single player will be the only survivor, so $P(1)$.
+
+\noindent \textbf {Inductive step:}
+
+Suppose $P(k)$ for all $k \in \N, k \leq n$ for some $n$. 
+
+If $n + 1$ is even, then $P(n + 1)$ holds vacuously.
+
+Suppose $n + 1$ is odd, and let $G$ be a game with $n + 1$ players.
+  
+Since we know there exists a pair of players that hit each other with water balloons. Let $p_1$ and $p_2$ be those players, clearly $Wet(p_1) \geq 1$ and $Wet(p_2) \geq 1$.
+
+\noindent \textit{Case 1: Assume $Wet(p_1) = 1$ and $Wet(p_2) = 1$.}
+
+Since these two players are not the target of water balloons other than each other, we can construct a new game $G'$ without $p_1, p_2$ but the same positions and number of survivors.
+
+Since this is a game of $n - 1$ players and $n - 1$ is odd, we can apply the IH and conclude that there is at least one person who does not get wet. Since $G$ has the same survivors as $G'$, so $P(n + 1).$
+
+\noindent \textit{Case 2. Assume that $Wet(p_1) > 1$ or $Wet(p_2) > 1$.}
+
+Assume without loss of generality that $Wet(p_1) > 1$.
+
+Since $Wet(p_1)$ water balloons have been thrown at $p_1$, so there are $n - Wet(p_1)$ water balloons left to be thrown at the rest of the players. However, there are $n - 1$ other players, so there are not enough water balloons to get everyone wet, so there is at least one survivor, so $P(n + 1)$.
+
+Therefore, $P(n)$ holds for all natural numbers.
+
+\hfill $\square$
+
+\newpage
+\section*{Problem 3}
+
+We define the predicate $P(n)$: ``Every tournament with $n$ teams that has a cycle has a cycle of length $3$", where $n \in \N$.
+
+\noindent \textbf{Base case:}
+
+Suppose $G$ is a tournament with 0, 1, or 2 teams. Then $G$ does not have enough teams to form a cycle, so $P(0), P(1), P(2)$ all hold vacuously.
+
+Suppose $G$ is a tournament with 3 teams, $T_1, T_2, T_3$ which has a cycle. Then since a cycle requires at least 3 teams and the tournament only has 3 teams, there is a cycle of length 3, so $P(3)$ holds.
+
+\noindent \textbf{Inductive step:}
+
+Let $S = \{ n \in \N : \neg P(n) \}$ so $S \subseteq \N$. Suppose $S$ is non-empty, then by the Well-Ordering Principle, $S$ has a least element which we will call $N$. We know that $N > 3$ because we showed above that $P(0), P(1), P(2), P(3)$ all hold.
+
+Let $G$ be a tournament with $N$ teams with a cycle, so $G$ has no cycle of length 3.
+
+Suppose the cycle has length $3 \leq m < N$, then let $G'$ be the tournament with the same outcomes as $G$ (aka the same teams win/lose against each other), however with only the teams in the cycle. Then $G'$ is a tournament with $m$ teams which has a cycle. Since $m < N$, by assumption $P(m)$, so there is a cycle of length 3 in $G'$. Since all of the teams in $G'$ are in $G$ with the same outcomes, the same cycle of length 3 must also be in $G$. This is a contradiction.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+    \node[draw=none] (1) at (0,0) {$T_1$};
+    \node[draw=none] (2) at (1,2) {$T_2$};
+    \node[draw=none] (3) at (3,3) {$T_3$};
+    \node[draw=none] (D) at (6,0) {$...$};
+    \node[draw=none] (N) at (1,-2) {$T_N$};
+    \node[draw=none] (N1) at (3,-3) {$T_{N-1}$};
+    \draw[->] (1) to (2);
+    \draw[->] (2) to (3);
+    \draw[->] (3) to [bend right=-30] (D);
+    \draw[->] (D) to [bend right=-30] (N1);
+    \draw[->] (N1) to (N);
+    \draw[->] (N) to (1);
+    \draw[->,blue,dashed,thick] (1) to [bend right=30] (3);
+    \draw[->,red,dashed,thick] (3) to [bend right=60] (1);
+\end{tikzpicture}
+\end{center}
+
+Suppose the cycle has length $N$. Let $T_1, T_2, ... T_n$ be all the teams in the cycle where $T_1 \rightarrow T_2, T_2 \rightarrow T_3, T_3 \rightarrow T_4, ... T_{N-1} \rightarrow T_N, T_N \rightarrow T_1$. Then since every team plays every other team and there are no ties, either {\color{red}$T_3 \rightarrow T_1$} or {\color{blue}$T_1 \rightarrow T_3$}.
+
+Suppose {\color{red}$T_3 \rightarrow T_1$}, then $T_1 \rightarrow T_2, T_2 \rightarrow T_3, T_3 \rightarrow T_1$, so there is a cycle of length 3, so we have reached a contradiction.
+
+Suppose {\color{blue}$T_1 \rightarrow T_3$}, then $T_1 \rightarrow T_3, T_3 \rightarrow T_4, ... T_{N-1} \rightarrow T_N, T_n \rightarrow T_1$, so there is a cycle of length $N - 1$ which is less than $N$. Then as shown earlier, there must be a cycle of length 3, so we have reached another contradiction.
+
+Since we have reached a contradiction in every case, we must conclude that our assumption that $S$ is non-empty must have been incorrect, so $\forall n \in \N, P(n)$.
+
+\hfill $\square$
+
+\newpage
+\section*{Problem 4}
+
+% This doesn't use a predicate. If you feel like it should, then just go ahead and add one!
+
+\noindent \textbf{Base case:}
+
+Let $k = 0$, then $(2^{k+1} + 1, 2^k + 1) = (2^1 + 1, 1 + 1) = (3, 2)$, so $(3, 2) \in R$.
+
+\noindent \textbf{Inductive step:}
+
+Suppose for some $(x, y) \in S$, $(x, y) \in R$, so $\exists k \in \N, (x, y) = (2^{k+1} + 1, 2^k + 1)$. Since  $(x, y) \in S$, we know that $(3x - 2y, x) \in S$. Then if $k' = k + 1$,
+\begin{align*}
+    (3x - 2y, x) &= (3(2^{k+1} + 1) - 2(2^k + 1), 2^{k+1} + 1) \\
+    &= (3 \cdot 2^{k+1} + 3 - 2 \cdot 2^k - 2, 2^{k+1} + 1) \\
+    &= ((2 + 1) 2^{k+1} - \cdot 2^{k+1} + 1, 2^{k+1} + 1) \\
+    &= (2^{k+2} + 2^{k+1} - \cdot 2^{k+1} + 1, 2^{k+1} + 1) \\
+    &= (2^{k+2} + 1, 2^{k+1} + 1) \\
+    &= (2^{k'+1} + 1, 2^{k'} + 1)
+\end{align*}
+
+\noindent So there exists a natural number $k'$ so that $(3x - 2y, x) = (2^{k'+1} + 1, 2^{k'} + 1)$, so $(3x - 2y, x) \in R$. So by the principle of structural induction, $(x, y) \in S \implies (x, y) \in R$, so $S \subseteq R$.
+
+\hfill $\square$
+
+\end{document}
