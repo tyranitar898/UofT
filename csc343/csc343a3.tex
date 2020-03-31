@@ -106,10 +106,10 @@
     \hline
     Attribute & LHS & RHS & Conclusion \\
     \hline
-    I & \checkmark & \checkmark & must check \\
+    I &  & \checkmark & not in any key \\
     J & \checkmark & \checkmark & must check \\
     K & \checkmark & \checkmark & must check \\
-    L & \checkmark & \checkmark & must check \\
+    L &  & \checkmark & not in any key \\
     M & \checkmark & \checkmark & must check \\
     N & \checkmark & - & must be in every key \\
     O & - & - & must be in every key \\
@@ -121,6 +121,7 @@
 
     Now checking the closure of every attribute that is in both LHS and RHS:
     \begin{itemize}
+      #dont think we need these
       \item $\underline INOP^+ = NOPI$. Not a key.
       \item $\underline JNOP^+ = NOPJLIKM$. So $JNOP$ is a key.
       \item $\underline KNOP^+ = NOPKIJLM$. So $KNOP$ is a key.
