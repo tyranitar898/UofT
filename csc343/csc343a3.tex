@@ -1,0 +1,284 @@
+\documentclass[12pt]{article}
+\usepackage{ccfonts,fullpage,graphics,rotating,amsmath,amssymb,setspace,multicol}
+\usepackage{tabularx}
+\title{CSC343 Assignment 3: Database Design}
+\author{Ryan Chang, Le Rong Shi}
+\date{\today}
+
+\renewcommand{\today}{~}
+\renewcommand{\labelitemii}{\textbullet}
+\newcommand{\ul}{$\underline{~}$}
+\newboolean{solutions}
+\setboolean{solutions}{false}
+
+\begin{document}
+
+\maketitle\vspace{-2\baselineskip}
+
+
+\begin{enumerate}
+
+  \item Relation $R$ has attributes $IJKLMNOP$ and functional dependencies:
+  $$S_P = \{M \rightarrow IJL, J \rightarrow LI, JN \rightarrow KM, M \rightarrow J, KLN \rightarrow M, K \rightarrow IJL, IJ \rightarrow K\}$$
+  \begin{itemize}
+    \item[(a)] Find a minimal basis for $R$. \\[5pt]
+    \textbf{Step 1:} Split the RHSs to get our initial set of FDs, $S_{p1}$. We obtain:
+    \begin{multicols}{3}[]
+      \begin{itemize}
+        \item[(1)] $M \rightarrow I$
+        \item[(2)] $M \rightarrow J$
+        \item[(3)] $M \rightarrow L$
+        \item[(4)] $J \rightarrow L$
+        \item[(5)] $J \rightarrow I$
+        \item[(6)] $JN \rightarrow K$
+        \item[(7)] $JN \rightarrow M$
+        \item[(8)] $M \rightarrow J$
+        \item[(9)] $KLN \rightarrow M$
+        \item[(10)] $K \rightarrow I$
+        \item[(11)] $K \rightarrow J$
+        \item[(12)] $K \rightarrow L$
+        \item[(13)] $IJ \rightarrow K$
+      \end{itemize}
+    \end{multicols}
+
+    \vspace{5pt}
+
+    \textbf{Step 2:} For each FD, try to reduce the LHS with 2+ attributes. We obtain:
+    \begin{itemize}
+      \item[(6)] $JN \rightarrow K$ to $J \rightarrow K$. Since $J^+ = JLIK$, so we can reduce the LHS of this FD to just $J$.
+      \item[(7)] Since the closure of both $J$ and $N$ doesn't include $M$, so no need to reduce this FD.
+      \item[(9)] Since non of the closure of the singleton attributes include $M$, and $KN^+ = KNIJLM$, so we can reduce the LHS of this FD to $KN$.
+      \item[(13)] Using the reduced FD from (6), we know that $J \rightarrow K$. So any superset of $J$ that determines $K$ can be reduced to just $J$ on the LHS. 
+    \end{itemize}
+
+    Our new set, which we call $S_{p2}$:
+    \begin{multicols}{3}[]
+      \begin{itemize}
+        \item[(1)] $M \rightarrow I$
+        \item[(2)] $M \rightarrow J$
+        \item[(3)] $M \rightarrow L$
+        \item[(4)] $J \rightarrow L$
+        \item[(5)] $J \rightarrow I$
+        \item[(6)] $J \rightarrow K$
+        \item[(7)] $JN \rightarrow M$
+        \item[(8)] $M \rightarrow J$
+        \item[(9)] $KN \rightarrow M$
+        \item[(10)] $K \rightarrow I$
+        \item[(11)] $K \rightarrow J$
+        \item[(12)] $K \rightarrow L$
+        \item[(13)] $J \rightarrow K$
+      \end{itemize}
+    \end{multicols}
+
+    \vspace{5pt}
+
+    \onehalfspacing
+
+    \textbf{Step 3:} Try remove redundant FDs (those that are implied by others). We obtain:
+    \begin{itemize}
+      \item[(1)] $M^+_{S_{p2} - \{(1)\}} = MJL\underline IK$. We can remove this FD.
+      \item[(2)] $M^+_{S_{p2} - \{(1), (2)\}} = ML$. We need this FD.
+      \item[(3)] $M^+_{S_{p2} - \{(1), (3)\}} = MJ\underline LIK$. We can remove this FD.
+      \item[(4)] $J^+_{S_{p2} - \{(1), (3), (4)\}} = JIK\underline L$. We can remove this FD.
+      \item[(5)] $J^+_{S_{p2} - \{(1), (3), (4), (5)\}} = JK\underline IL$. We can remove this FD.
+      \item[(6)] $J^+_{S_{p2} - \{(1), (3), (4), (5), (6)\}} = J$. We need this FD.
+      \item[(7)] $JN^+_{S_{p2} - \{(1), (3), (4), (5), (7)\}} = JNKIL\underline M$. We can remove this FD.
+      \item[(8)] Duplicate FD from (2). We can remove this FD.
+      \item[(9)] $KN^+_{S_{p2} - \{(1), (3), (4), (5), (7), (8), (9)\}} = KN$. We need this FD.
+      \item[(10)] $K^+_{S_{p2} - \{(1), (3), (4), (5), (7), (8), (10)\}} = KJL$. We need this FD.
+      \item[(11)] $K^+_{S_{p2} - \{(1), (3), (4), (5), (7), (8), (11)\}} = KIL$. We need this FD.
+      \item[(12)] $K^+_{S_{p2} - \{(1), (3), (4), (5), (7), (8), (12)\}} = KIJ$. We need this FD.
+      \item[(13)] Duplicate FD from (6). We can remove this FD.
+    \end{itemize}
+
+    \singlespacing
+
+    \vspace{5pt}
+
+    Our final set of FDs is:
+    $$S_{p3} = \{M \rightarrow J, J \rightarrow K, KN \rightarrow M, K \rightarrow I, K \rightarrow J, K \rightarrow L\}$$
+
+    \vspace{10pt}
+
+    \item[(b)] Find all keys for $R$. \\[5pt]
+    \onehalfspacing
+    \begin{tabular}{ |c|c|c|c|  }
+    \hline
+    Attribute & LHS & RHS & Conclusion \\
+    \hline
+    I & \checkmark & \checkmark & must check \\
+    J & \checkmark & \checkmark & must check \\
+    K & \checkmark & \checkmark & must check \\
+    L & \checkmark & \checkmark & must check \\
+    M & \checkmark & \checkmark & must check \\
+    N & \checkmark & - & must be in every key \\
+    O & - & - & must be in every key \\
+    P & - & - & must be in every key \\
+    \hline
+    \end{tabular}
+
+    \vspace{15pt}
+
+    Now checking the closure of every attribute that is in both LHS and RHS:
+    \begin{itemize}
+      \item $\underline INOP^+ = NOPI$. Not a key.
+      \item $\underline JNOP^+ = NOPJLIKM$. So $JNOP$ is a key.
+      \item $\underline KNOP^+ = NOPKIJLM$. So $KNOP$ is a key.
+      \item $\underline LNOP^+ = NOPL$. Not a key.
+      \item $\underline MNOP^+ = NOPMIJLK$. So $MNOP$ is a key.
+    \end{itemize}
+
+    \vspace{10pt}
+
+    \item[(c)] Uses 3NF to find a lossless, dependency-preserving decomposition of $R$. \\[5pt]
+
+    \vspace{10pt}
+
+    \item[(d)] Does your schema allow redundancy? Explain why, or why not. \\[5pt]
+
+  \end{itemize}
+
+  \item Relation $T$ contains attributes $CDEFGHIJ$ and functional dependencies:
+  $$S_T = \{C \rightarrow EH, DEI \rightarrow F, F \rightarrow D, EH \rightarrow CJ, J \rightarrow FGI\}$$
+  \begin{itemize}
+    \item[(a)] Which of the FDs in $S_T$ violate BCNF?
+    \item[(b)] Decompose $T$ into a collection of relations that are each in BCNF.
+  \end{itemize}
+
+  Relation $T$ contains attributes CDEFGHIJ and FDs 
+\newline
+$S_T = \{ C \rightarrow EH, DEI \rightarrow F, F \rightarrow D, EH \rightarrow CJ, J \rightarrow FGI\}$
+\subsection*{(a)}
+\begin{itemize}
+    \item $C^+ = CDEFGHIJ$   \; so $C \rightarrow EH$ does not violate BCNF
+    \item $DEI^+ = DEIF$     \; so $DEI \rightarrow F$ does violate BCNF
+    \item $F^+ = FD$         \; so $F \rightarrow D$ does violate BCNF
+    \item $EH^+ = CDEFGHIJ$  \; so $EH \rightarrow CJ$ does not violate BCNF
+    \item $J^+ = JFGID$    \; so $J \rightarrow FGI$ does violate BCNF 
+\end{itemize}
+\newpage
+\subsection*{(b)}
+\begin{itemize}
+    \item Decompose T using FD $DEI \rightarrow F$. $DEI^+ = DEIF$, 
+    so this yields two relations $R_1 = DEFI$ and $R_2 = CDEGHIJ$ 
+    \item Project the DFs onto $R_1 = DEFI$.     \newline
+    \begin{tabular}{ | m{1cm} | m{1cm}| m{1cm} | m{1cm} | m{3cm} | m{7cm} | } 
+    \hline
+    D & E & F & I & closure & FDs\\ 
+    \hline
+    \checkmark &  &  & & $D^+ = D$ & nothing\\ 
+    \hline
+    & \checkmark  &  & & $E^+ = E$ & nothing\\ 
+    \hline
+    &  & \checkmark  & & $F^+ = FD$ & $F \rightarrow D$; violates BCNF; abort \\ 
+    \hline
+    \end{tabular}\\
+    We must decompose $R_1$ further.
+    \item Decompose $R_1$ using FD $F \rightarrow D$. 
+    so this yields two relations $R_3 = FD$ and $R_4 = FEI$ 
+    \item Project the FDs onto $R_3 = FD$.     \newline
+    \begin{tabular}{ | m{1cm} | m{1cm}| m{3cm} | m{7cm} | } 
+    \hline
+    F & D & closure & FDs\\ 
+    \hline
+    \checkmark &  & $F^+ = FD$ & $F \rightarrow D$\\ 
+    \hline
+    & \checkmark  & $D^+ = D$ & nothing\\ 
+    \hline
+    \end{tabular}\\
+    \item Project the FDs onto $R_4 = FEI$.     \newline
+    \begin{tabular}{ | m{1cm} |m{1cm} | m{1cm}| m{3cm} | m{7cm} | } 
+    \hline
+    F & E & I & closure & FDs\\ 
+    \hline
+    \checkmark & & & $F^+ = FD$& nothing\\ 
+    \hline
+    & \checkmark  & & $E^+ = E$& nothing\\ 
+    \hline
+    & & \checkmark& $I^+ = I$&nothing\\ 
+    \hline
+    \checkmark &  \checkmark & &$FE^+ = FED$ & nothing\\ 
+    \hline
+    \checkmark &   & \checkmark&$FI^+ = FI$ & nothing\\ 
+    \hline
+     &  \checkmark & \checkmark&$EI^+ = EI$ & nothing\\ 
+    \hline
+    \end{tabular}\\
+    \item Return to $R_2 = CDEGHIJ$ and prodject the FDs onto it.     \newline
+    \begin{tabular}{ | m{1cm} |m{0.5cm} | m{0.5cm} |  m{0.5cm}|m{0.5cm}|m{1cm}|m{1cm}| m{3cm} | m{7cm} | } 
+    \hline
+    C & D & E & G & H & I & J & closure & FDs\\ 
+    \hline
+    \checkmark & & & & & & & $C^+ = CDEGHIJ$& nothing\\ 
+    \hline
+    & \checkmark & & & & & & $D^+ = D$ &nothing\\ 
+    \hline
+    & & \checkmark & & & & & $E^+ = E$ &nothing\\ 
+    \hline
+    & & & \checkmark & & & & $G^+ = G$ &nothing\\ 
+    \hline
+    & & & &\checkmark & & & $H^+ = H$ &nothing\\ 
+    \hline
+    & & & & & \checkmark& & $I^+ = I$ &nothing\\ 
+    \hline
+    & & & & & & \checkmark& $J^+ = JFGID$ & $J \rightarrow IDG$\\ 
+    \hline
+    \end{tabular}\\
+    \newpage
+    \item Decompose $R_2$ using FD $J \rightarrow IDG$. 
+    so this yields two relations $R_5 = JIDG$ and $R_6 = CEHJ$ 
+    \item Project the FDs onto $R_5 = JIDG$.     \newline
+    \begin{tabular}{ | m{1cm} | m{1cm}| m{1cm} | m{1cm} | m{3cm} | m{7cm} | } 
+        \hline
+        J & I & D & G & closure & FDs\\ 
+        \hline
+        \checkmark &  &  & & $J^+ = JFGID$ & $J \rightarrow IDG$; dont need to consider super-sets of J\\ 
+        \hline
+        & \checkmark  &  & & $I^+ = I$ & nothing\\ 
+        \hline
+        &  & \checkmark  & & $D^+ = D$ & nothing\\ 
+        \hline
+        &  &  &\checkmark & $G^+ = G$ & nothing\\ 
+        \hline
+        &  \checkmark& \checkmark & & $ID^+ = ID$ & nothing\\ 
+        \hline
+        &  \checkmark&  & \checkmark& $IG^+ = IG$ & nothing\\ 
+        \hline
+        &  & \checkmark & \checkmark& $DG^+ = DG$ & nothing\\ 
+        \hline
+    \end{tabular}\\
+    \item Project the FDs onto $R_6 = CEHJ$.     \newline
+    \begin{tabular}{ | m{1cm} | m{1cm}| m{1cm} | m{1cm} | m{3cm} | m{7cm} | } 
+        \hline
+        C & E & H & J & closure & FDs\\ 
+        \hline
+        \checkmark &  &  & & $C^+ = CEHJFGI$ & $C \rightarrow EHJ$; dont need to consider super-sets of C\\ 
+        \hline
+        & \checkmark  &  & & $E^+ = E$ & nothing\\ 
+        \hline
+        &  & \checkmark  & & $H^+ = H$ & nothing\\ 
+        \hline
+        &  &  &\checkmark & $J^+ = J$ & nothing\\ 
+        \hline
+        &  \checkmark& \checkmark & & $EH^+ = CEHJFGID$ & $EH \rightarrow CEHJFGID$\\ 
+        \hline
+        &  \checkmark&  & \checkmark& $EJ^+ = EJFGID$ & nothing\\ 
+        \hline
+        &  & \checkmark & \checkmark& $HJ^+ = HJFGID$ & nothing\\ 
+        \hline
+    \end{tabular}\\
+\end{itemize}
+So relation $T$ containing attributes CDEFGHIJ decomposes in to relations \newline
+
+\begin{itemize}
+    \item $R_3 = FD$ \newline
+    FDs = $\{ F \rightarrow D\}$
+    \item $R_4 = EFI$\newline
+    FDs = $\{\}$
+    \item $R_5 = DGIJ$ \newline
+    FDs = $\{ J \rightarrow DGI\}$
+    \item $R_6 = CEHJ$\newline
+    FDs = $\{ EH \rightarrow CJ, C \rightarrow EH\}$
+\end{itemize} 
+
+\end{enumerate}\end{document}
