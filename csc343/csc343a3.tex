@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{ccfonts,fullpage,graphics,rotating,amsmath,amssymb,setspace,multicol}
 \usepackage{tabularx}
+\usepackage{comment}
 \title{CSC343 Assignment 3: Database Design}
 \author{Ryan Chang, Le Rong Shi}
 \date{\today}
@@ -143,7 +144,13 @@
     So our final answer will be $R_1(J, M), R_5(K, N, O, P), R_3(K, M, N), R_4(I, J, K, L)$
 
     \item[(d)] Does your schema allow redundancy? Explain why, or why not. \\[5pt]
-    No because all relations are in BCNF. WILL TYPE UP explaination TMRW
+    We can quickly find a relation that violates BCNF without doing all the full rojections:  Clearly $M \rightarrow K$ and
+    $M^+ = JKIL$. So, M is not a superkey for this relation.\\
+    So, Yes these scehma allows redundancy.\\
+    
+    
+
+  
   \end{itemize}
   \newpage
   \item Relation $T$ contains attributes $CDEFGHIJ$ and functional dependencies:\newline
@@ -226,7 +233,6 @@ Decompose $T$ into a collection of relations that are each in BCNF.
     & & & & & & \checkmark& $J^+ = JFGID$ & $J \rightarrow IDG$\\ 
     \hline
     \end{tabular}\\
-    \newpage
     \item Decompose $R_2$ using FD $J \rightarrow IDG$. 
     so this yields two relations $R_5 = JIDG$ and $R_6 = CEHJ$ 
     \item Project the FDs onto $R_5 = JIDG$.     \newline
@@ -282,5 +288,42 @@ So relation $T$ containing attributes CDEFGHIJ decomposes in to relations \newli
     \item $R_6 = CEHJ$\newline
     FDs = $\{ EH \rightarrow CJ, C \rightarrow EH\}$
 \end{itemize} 
+\begin{comment}
+  No because all relations are in BCNF. \\
+    By projecting the FDs $S_T$ on to each relation we can check if each relation violates BCNF\\
+    \newpage
+    \begin{itemize}
+      \item $Proj(S_T, \{K, M\})$:\\
+      $M^+ = {MJKIL}$\\
+      $K^+ = {KIJL}$\\
+      so,$Proj(S_T, R_1)$: $M \rightarrow J$\\
+      \item $Proj(S_T, \{K,N,M\})$:\\
+      $K^+ = {KIJL}$\\
+      $N^+ = {N}$\\
+      $M^+ = {MJKIL}$\\
+      $KN^+ = {KNMIJL}$\\
+      $KM^+ = {KMJIL}$\\
+      $NM^+ = {NMJK}$\\
+      so,$Proj(S_T, R_1)$: $\{KN \rightarrow M, NM \rightarrow K\}$\\
+      \item $Proj(S_T, \{K, I, J, L\})$:\\
+      $K^+ = {KIJL}$ ; dont consider supersets of K\\
+      $I^+ = {I}$\\
+      $J^+ = {JKIL}$; dont consider supersets of J\\
+      $L^+ = {L}$\\
+      so,$Proj(S_T, R_1)$: $ \{K \rightarrow IJL, J \rightarrow KIL\}$\\
+      \item $Proj(S_T, \{N, O, P, K\})$:\\
+      $N^+ = {N}$\\
+      $O^+ = {O}$\\
+      $P^+ = {P}$\\
+      $K^+ = {KIJL}$\\
+      $NO^+ = {NO}$\\
+      $NP^+ = {NP}$\\
+      $NK^+ = {NKIJLM}$\\
+      $NOP^+ = {NOP}$\\
+      $NOK^+ = {NKIJLM}$\\
+      ... ommited because no other subsets will have closure with P or N or O.
+      so,$Proj(S_T, R_5)$: $\{KN \rightarrow M, NM \rightarrow K\}$\\
+    \end{itemize}
+\end{comment}
 
 \end{enumerate}\end{document}
