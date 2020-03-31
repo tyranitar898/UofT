@@ -130,25 +130,29 @@
 
     \vspace{10pt}
 
-    \item[(c)] Uses 3NF to find a lossless, dependency-preserving decomposition of $R$. \\[5pt]
-
-    \vspace{10pt}
+    \item[(c)] Uses 3NF to find a lossless, dependency-preserving decomposition of $R$. \\
+    Revised FDs (concat rightside):
+    \begin{itemize}
+      \item $M \rightarrow J$
+      \item $J \rightarrow K$
+      \item $KN \rightarrow M$
+      \item $K \rightarrow IJL$
+    \end{itemize}
+    From these we get four relations.\\
+    $R_1(J, M), R_2(J, K), R_3(K, N, M), R_4(I, J, K, L)$\\
+    - Since J, K occur in $R_4$, we don't need $R_2$\\
+    - Since none of the relations have attribute lists that are keys we need to add a relation that contains a key, So We'll add $R_5(N, O, P, K)$\\
+    So our final answer will be $R_1(J, M), R_5(K, N, O, P), R_3(K, M, N), R_4(I, J, K, L)$
 
     \item[(d)] Does your schema allow redundancy? Explain why, or why not. \\[5pt]
-
+    No because all relations are in BCNF. WILL TYPE UP explaination TMRW
   \end{itemize}
-
-  \item Relation $T$ contains attributes $CDEFGHIJ$ and functional dependencies:
-  $$S_T = \{C \rightarrow EH, DEI \rightarrow F, F \rightarrow D, EH \rightarrow CJ, J \rightarrow FGI\}$$
-  \begin{itemize}
-    \item[(a)] Which of the FDs in $S_T$ violate BCNF?
-    \item[(b)] Decompose $T$ into a collection of relations that are each in BCNF.
-  \end{itemize}
-
-  Relation $T$ contains attributes CDEFGHIJ and FDs 
-\newline
+  \newpage
+  \item Relation $T$ contains attributes $CDEFGHIJ$ and functional dependencies:\newline
 $S_T = \{ C \rightarrow EH, DEI \rightarrow F, F \rightarrow D, EH \rightarrow CJ, J \rightarrow FGI\}$
 \subsection*{(a)}
+Which of the FDs in $S_T$ violate BCNF?
+
 \begin{itemize}
     \item $C^+ = CDEFGHIJ$   \; so $C \rightarrow EH$ does not violate BCNF
     \item $DEI^+ = DEIF$     \; so $DEI \rightarrow F$ does violate BCNF
@@ -156,8 +160,8 @@ $S_T = \{ C \rightarrow EH, DEI \rightarrow F, F \rightarrow D, EH \rightarrow C
     \item $EH^+ = CDEFGHIJ$  \; so $EH \rightarrow CJ$ does not violate BCNF
     \item $J^+ = JFGID$    \; so $J \rightarrow FGI$ does violate BCNF 
 \end{itemize}
-\newpage
 \subsection*{(b)}
+Decompose $T$ into a collection of relations that are each in BCNF.
 \begin{itemize}
     \item Decompose T using FD $DEI \rightarrow F$. $DEI^+ = DEIF$, 
     so this yields two relations $R_1 = DEFI$ and $R_2 = CDEGHIJ$ 
