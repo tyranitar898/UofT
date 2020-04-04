@@ -1,9 +1,49 @@
-<h1>Ryan Chang</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ryan Chang</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <h1 id="mainHeader">Ryan Chang</h1>
+    <p id="reachMe">ryanrz.chang@mail.utoronto.ca | 647-962-5400</p>
+    <p id="firstP">
+      I am a third year computer science student at the University of
+      Toronto.<br />
+      Outside of school, I am the biggest NBA fanatic you’ll probably meet.<br />
+      Given an NBA team I can probably give you a one sentence summary about any
+      given player on that team.<br />
+      Inside of school, I’m passionate about machine learning and game
+      development.
+    </p>
+    <h1 id="secondaryHeader">Here are the CS courses I've taken @UofT</h1>
+    <ul>
+      <li><p>CSC148 - Intro to Comp Sci</p></li>
+      <li><p>CSC165 - Math Expr&Rsng for CS</p></li>
+      <li><p>CSC236 - Intro to Theory Comp</p></li>
+      <li><p>CSC258 - Computer Organizatn</p></li>
+      <li><p>CSC207 - Software Design</p></li>
+      <li><p>CSC209 - Soft Tools & Sys Prog</p></li>
+      <li><p>CSC263 - Data Structures & Analysis</p></li>
+      <li><p>CSC300 - Computers & Society</p></li>
+      <li><p>CSC343 - Intro to Databases</p></li>
+    </ul>
 
-<body>
-  I am a third year computer science student at the University of TorontoI.
-  Outside of school, I am the biggest NBA fanatic you’ll probably meet. Given an
-  NBA team I can probably give you a one sentence summary about any given player
-  on that team. Inside of school, I’m passionate about machine learning and game
-  development.
-</body>
+    <!-- We will put our React component inside this div.
+    <div id="like_button_container"></div> -->
+
+    <!-- Load our React component. -->
+    <script src="like_button.js"></script>
+  </body>
+</html>
