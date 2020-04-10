@@ -30,3 +30,8 @@
   font-size: 20px;
   color: grey;
 }
+
+a {color:grey;}         /* Unvisited link  */
+a:visited {color:grey;} /* Visited link    */
+a:hover {color:black;}   /* Mouse over link */
+a:active {color:black;}  /* Selected link   */
