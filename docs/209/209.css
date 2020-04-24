@@ -1,0 +1,11 @@
+pre.code {
+  background-color: lightgrey;
+  width: 40%;
+  border-radius: 10px;
+  border: 2px solid grey;
+}
+
+li.assignmentTitle {
+  font-size: 28px;
+  color: blue;
+}
