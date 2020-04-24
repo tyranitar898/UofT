@@ -1,6 +1,7 @@
 pre.code {
+  font-family: "Consolas";
   background-color: lightgrey;
-  width: 40%;
+  width: 42%;
   border-radius: 10px;
   border: 2px solid grey;
 }

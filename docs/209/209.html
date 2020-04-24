@@ -7,7 +7,9 @@
     <title>209</title>
     <meta name="description" content="The HTML5 Herald" />
     <meta name="author" content="SitePoint" />
+    <link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
 
+    
     <link rel="stylesheet" href="209.css" />
   </head>
 
@@ -136,76 +138,76 @@ send message (broad casts message to every that follows this user)</pre
           <li>
             <p>Sample server log<br /></p>
             <pre class="code">
-              Ryans-MacBook-Pro:a4 ryanchang$ make PORT=53748
-              gcc -DPORT=53748 -Wall -g -std=gnu99  -c twerver.c
-              gcc -DPORT=53748 -Wall -g -std=gnu99  -c socket.c
-              gcc -DPORT=53748 -Wall -g -std=gnu99  -o twerver twerver.o socket.o
-              Ryans-MacBook-Pro:a4 ryanchang$ ./twerver
-              A new client is connecting
-              Waiting for a new connection...
-              New connection accepted from 192.168.0.252:51347
-              Connection from 192.168.0.252
-              Adding client 192.168.0.252
-              [4] Read 7 bytes
-              hello hello
-              hello has just joined.
-              ^C
-              Ryans-MacBook-Pro:a4 ryanchang$ 
-              Ryans-MacBook-Pro:a4 ryanchang$ make PORT=53748
-              gcc -DPORT=53748 -Wall -g -std=gnu99  -c twerver.c
-              gcc -DPORT=53748 -Wall -g -std=gnu99  -o twerver twerver.o socket.o
-              Ryans-MacBook-Pro:a4 ryanchang$ ./twerver
-              A new client is connecting
-              Waiting for a new connection...
-              New connection accepted from 192.168.0.252:51351
-              Connection from 192.168.0.252
-              Adding client 192.168.0.252
-              [4] Read 6 bytes
-              ryan has just joined.
-              A new client is connecting
-              Waiting for a new connection...
-              New connection accepted from 192.168.0.252:51353
-              Connection from 192.168.0.252
-              Adding client 192.168.0.252
-              [5] Read 4 bytes
-              [5] Read 2 bytes
-              jack has just joined.
-              [5] Read 7 bytes
-              [5] Read 2 bytes
-              [5] Found newline:send hi with length 7
-              User jack: sent msg: hi
-              [4] Read 17 bytes
-              [4] Found newline:send hello jack with length 15
-              User ryan: sent msg: hello jack
-              [5] Read 10 bytes
-              [5] Read 2 bytes
-              [5] Found newline:jakdfa daf with length 10
-              Invalid command
-              [5] Read 11 bytes
-              [5] Read 2 bytes
-              [5] Found newline:follow ryan with length 11
-              User jack following ryan.
-              [4] Read 25 bytes
-              [4] Found newline:send inpirational tweet with length 23
-              User ryan: sent msg: inpirational tweet
-              [5] Read 30 bytes
-              [5] Found newline:send wow quite inspirational with length 28
-              User jack: sent msg: wow quite inspirational
-              [5] Read 14 bytes
-              [5] Found newline:send goodbye with length 12
-              User jack: sent msg: goodbye
-              [5] Read 4 bytes
-              [5] Read 2 bytes
-              [5] Found newline:quit with length 4
-              got here 55
-              Removing client 5 192.168.0.252
-              Client 5 disconnected
-              [4] Read 4 bytes
-              [4] Read 2 bytes
-              [4] Found newline:quit with length 4
-              got here 55
-              Removing client 4 192.168.0.252
-              Client 4 disconnected</pre
+Ryans-MacBook-Pro:a4 ryanchang$ make PORT=53748
+gcc -DPORT=53748 -Wall -g -std=gnu99  -c twerver.c
+gcc -DPORT=53748 -Wall -g -std=gnu99  -c socket.c
+gcc -DPORT=53748 -Wall -g -std=gnu99  -o twerver twerver.o socket.o
+Ryans-MacBook-Pro:a4 ryanchang$ ./twerver
+A new client is connecting
+Waiting for a new connection...
+New connection accepted from 192.168.0.252:51347
+Connection from 192.168.0.252
+Adding client 192.168.0.252
+[4] Read 7 bytes
+hello hello
+hello has just joined.
+^C
+Ryans-MacBook-Pro:a4 ryanchang$ 
+Ryans-MacBook-Pro:a4 ryanchang$ make PORT=53748
+gcc -DPORT=53748 -Wall -g -std=gnu99  -c twerver.c
+gcc -DPORT=53748 -Wall -g -std=gnu99  -o twerver twerver.o socket.o
+Ryans-MacBook-Pro:a4 ryanchang$ ./twerver
+A new client is connecting
+Waiting for a new connection...
+New connection accepted from 192.168.0.252:51351
+Connection from 192.168.0.252
+Adding client 192.168.0.252
+[4] Read 6 bytes
+ryan has just joined.
+A new client is connecting
+Waiting for a new connection...
+New connection accepted from 192.168.0.252:51353
+Connection from 192.168.0.252
+Adding client 192.168.0.252
+[5] Read 4 bytes
+[5] Read 2 bytes
+jack has just joined.
+[5] Read 7 bytes
+[5] Read 2 bytes
+[5] Found newline:send hi with length 7
+User jack: sent msg: hi
+[4] Read 17 bytes
+[4] Found newline:send hello jack with length 15
+User ryan: sent msg: hello jack
+[5] Read 10 bytes
+[5] Read 2 bytes
+[5] Found newline:jakdfa daf with length 10
+Invalid command
+[5] Read 11 bytes
+[5] Read 2 bytes
+[5] Found newline:follow ryan with length 11
+User jack following ryan.
+[4] Read 25 bytes
+[4] Found newline:send inpirational tweet with length 23
+User ryan: sent msg: inpirational tweet
+[5] Read 30 bytes
+[5] Found newline:send wow quite inspirational with length 28
+User jack: sent msg: wow quite inspirational
+[5] Read 14 bytes
+[5] Found newline:send goodbye with length 12
+User jack: sent msg: goodbye
+[5] Read 4 bytes
+[5] Read 2 bytes
+[5] Found newline:quit with length 4
+got here 55
+Removing client 5 192.168.0.252
+Client 5 disconnected
+[4] Read 4 bytes
+[4] Read 2 bytes
+[4] Found newline:quit with length 4
+got here 55
+Removing client 4 192.168.0.252
+Client 4 disconnected</pre
             >
           </li>
           <li>
