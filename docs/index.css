@@ -6,7 +6,7 @@
 }
 #reachMe {
   font-family: "Times New Roman", Times, serif;
-  font-size: 20px;
+  font-size: 25px;
   color: grey;
   text-align: center;
 }
@@ -31,7 +31,15 @@
   color: grey;
 }
 
-a {color:grey;}         /* Unvisited link  */
-a:visited {color:grey;} /* Visited link    */
-a:hover {color:black;}   /* Mouse over link */
-a:active {color:black;}  /* Selected link   */
+a {
+  color: grey;
+} /* Unvisited link  */
+a:visited {
+  color: grey;
+} /* Visited link    */
+a:hover {
+  color: black;
+} /* Mouse over link */
+a:active {
+  color: black;
+} /* Selected link   */
