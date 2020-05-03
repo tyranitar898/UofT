@@ -31,6 +31,9 @@
   color: grey;
 }
 
+#bottom div {
+  margin-bottom: 45%;
+}
 a {
   color: grey;
 } /* Unvisited link  */
