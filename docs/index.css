@@ -31,10 +31,16 @@
   color: grey;
 }
 
-#bottom div {
-  margin-bottom: 45%;
+div#main {
+  margin: 0 auto;
+  width: 90%;
+}
+
+div#bottom {
+  margin-bottom: 10%;
 }
 a {
+  font-size: 18px;
   color: grey;
 } /* Unvisited link  */
 a:visited {
