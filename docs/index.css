@@ -36,8 +36,12 @@ div#main {
   width: 90%;
 }
 
+h1#builtby {
+  text-align: center;
+}
+
 div#bottom {
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 a {
   font-size: 18px;
