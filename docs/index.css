@@ -44,7 +44,7 @@ div#bottom {
   margin-bottom: 5%;
 }
 a {
-  font-size: 22px;
+  font-size: 20px;
   color: grey;
   transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out,
     border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
