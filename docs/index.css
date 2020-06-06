@@ -46,6 +46,7 @@ div#bottom {
 a {
   font-size: 20px;
   color: grey;
+  text-decoration: none;
   transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out,
     border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
 } /* Unvisited link  */
