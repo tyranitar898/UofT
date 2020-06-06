@@ -10,11 +10,6 @@
   color: grey;
   text-align: center;
 }
-#secondaryHeader {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 35px;
-  font-weight: bold;
-}
 
 #firstP {
   font-family: "Times New Roman", Times, serif;
@@ -59,3 +54,11 @@ a:hover {
 a:active {
   color: black;
 } /* Selected link   */
+
+h1.secondaryHeader {
+  border-bottom: 1px solid grey;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 35px;
+  font-weight: bold;
+  width: fit-content;
+}
