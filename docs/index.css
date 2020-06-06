@@ -6,7 +6,7 @@
 }
 #reachMe {
   font-family: "Times New Roman", Times, serif;
-  font-size: 25px;
+  font-size: 30px;
   color: grey;
   text-align: center;
 }
@@ -40,6 +40,10 @@ img {
 }
 div#bottom {
   margin-bottom: 5%;
+}
+
+li {
+  font-size: 20px;
 }
 a {
   font-size: 20px;
