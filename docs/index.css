@@ -17,12 +17,12 @@
   text-align: center;
 }
 
-#couseLi {
+#listItem {
   padding: 5px;
 }
 
 #reflectOnCourse {
-  font-size: 20px;
+  font-size: 16px;
   color: grey;
 }
 
