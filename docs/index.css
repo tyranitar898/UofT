@@ -1,3 +1,5 @@
+body {
+}
 #mainHeader {
   font-family: "Times New Roman", Times, serif;
   font-size: 50px;
@@ -68,6 +70,16 @@ h1.secondaryHeader {
   font-size: 35px;
   font-weight: bold;
   width: fit-content;
+}
+
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.white {
+  color: grey;
 }
 
 @media only screen and (max-width: 767px) {
