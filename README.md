@@ -1,2 +1,2 @@
-# [Personal Website](http://tyranitar898.github.io/UofT)
+# [Personal Website](ryanchang.online)
 Ryan Chang's UofT course files and personal website
