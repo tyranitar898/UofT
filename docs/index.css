@@ -23,7 +23,7 @@ body {
   padding: 5px;
 }
 
-#thirdHeader {
+.thirdHeader {
   font-size: 16px;
   color: grey;
 }
