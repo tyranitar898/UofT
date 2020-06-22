@@ -143,7 +143,7 @@ img {
   background: black;
 }
 
-@media only screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
   h1.secondaryHeader {
     font-family: "Times New Roman", Times, serif;
     font-size: 48px;
@@ -162,6 +162,7 @@ img {
   #firstP {
     font-size: 26px;
   }
+
   img {
     width: 90%;
     height: 90%;
