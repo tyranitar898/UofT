@@ -2,9 +2,23 @@ body {
   font-family: "Roboto Mono", monospace, "Times";
 }
 #mainHeader {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#mainHeader h1 {
   font-size: 50px;
   font-weight: bold;
   text-align: center;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+#selfportrait {
+  display: block;
+  margin: auto;
+  width: 120px;
+  height: 120px;
 }
 #reachMe {
   font-size: 30px;
@@ -34,10 +48,7 @@ div#main {
 h1#builtby {
   text-align: center;
 }
-img {
-  width: 50%;
-  height: 50%;
-}
+
 div#bottom {
   margin-bottom: 5%;
 }
@@ -62,6 +73,12 @@ a:active {
   color: black;
 } /* Selected link   */
 
+img.adventureIMG {
+  border-radius: 2%;
+  width: 50%;
+  height: 50%;
+}
+
 h1.secondaryHeader {
   /*border-bottom: 1px solid grey;*/
 
@@ -85,10 +102,6 @@ h1.secondaryHeader {
 }
 .white {
   color: grey;
-}
-
-img {
-  border-radius: 2%;
 }
 
 .typewriter p {
