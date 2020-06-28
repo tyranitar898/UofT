@@ -1,0 +1,11 @@
+body {
+  font-family: "Roboto Mono", monospace, "Times";
+  text-align: center;
+}
+img {
+  margin-bottom: 2%;
+  margin-left: 5%;
+  width: 40%;
+  width: 40%;
+  border-radius: 8px;
+}
