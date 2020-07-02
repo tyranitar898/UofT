@@ -9,3 +9,7 @@ img {
   width: 40%;
   border-radius: 8px;
 }
+
+div#bottom {
+  margin-bottom: 5%;
+}
