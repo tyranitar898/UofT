@@ -17,10 +17,11 @@ body {
 #selfportrait {
   display: block;
   margin: auto;
-  width: 9%;
-  height: 9%;
+  width: 12%;
+  height: 12%;
 }
 #reachMe {
+  
   font-size: 30px;
   color: grey;
   text-align: center;
@@ -103,7 +104,12 @@ h1.secondaryHeader {
 .white {
   color: grey;
 }
-
+.typewriter{
+  /*
+  position: -webkit-sticky;
+  position: sticky;
+  top:0;*/
+}
 .typewriter p {
   word-break: break-all;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
@@ -158,7 +164,7 @@ h1.secondaryHeader {
   background: black;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1000px) {
   .typewriter p {
     overflow: hidden;
     white-space: normal;
@@ -169,8 +175,8 @@ h1.secondaryHeader {
   #selfportrait {
     display: block;
     margin: auto;
-    width: 20%;
-    height: 20%;
+    width: 16%;
+    height: 16%;
   }
 
   h1.secondaryHeader {

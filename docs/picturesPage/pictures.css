@@ -4,12 +4,35 @@ body {
 }
 img {
   margin-bottom: 2%;
-  margin-left: 5%;
-  width: 40%;
+  margin-left: 3%;
   width: 40%;
   border-radius: 8px;
 }
 
 div#bottom {
   margin-bottom: 5%;
+}
+
+#picturesDiv{
+  margin: 0px;
+  padding: 0px;
+}
+
+a:visited {
+  color: grey;
+}
+
+#homeButton{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  img {
+    margin-bottom: 2%;
+    margin-left: 3%;
+    width: 80%;
+    border-radius: 8px;
+  }
 }
