@@ -217,7 +217,7 @@ h1.secondaryHeader {
     text-align: center;
   }
 
-  #firstP a {
+  #firstP .pink{
     font-size: 16px;
   }
 
