@@ -21,7 +21,6 @@ body {
   
 }
 #reachMe {
-  
   font-size: 30px;
   color: grey;
   text-align: center;
@@ -57,6 +56,7 @@ div#bottom {
 li {
   font-size: 20px;
 }
+.pink,
 a {
   font-size: 20px;
   color: grey;
@@ -87,14 +87,15 @@ h1.secondaryHeader {
   font-weight: bold;
   width: fit-content;
 }
-.pink {
-  color: grey;
-  transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out,
-    border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-}
+
 .pink:hover {
   color: lightpink;
 }
+
+.linkedInblue:hover {
+  color: #2867b2;
+}
+
 .red {
   color: red;
 }
@@ -104,7 +105,7 @@ h1.secondaryHeader {
 .white {
   color: grey;
 }
-.typewriter{
+.typewriter {
   /*
   position: -webkit-sticky;
   position: sticky;
@@ -223,7 +224,8 @@ h1.secondaryHeader {
   a {
     font-size: 20px;
   }
-  #listItem, #listItem a{
+  #listItem,
+  #listItem a {
     padding: 5px;
     font-size: 16px;
   }
