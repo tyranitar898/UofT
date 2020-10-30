@@ -17,7 +17,8 @@ body {
 #selfportrait {
   display: block;
   margin: auto;
-  width: 8%;
+  width: 9%;
+  
 }
 #reachMe {
   font-size: 30px;
@@ -216,7 +217,7 @@ h1.secondaryHeader {
     text-align: center;
   }
 
-  #firstP a {
+  #firstP .pink{
     font-size: 16px;
   }
 
