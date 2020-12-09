@@ -1,0 +1,454 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Games for life</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+
+
+html {
+	font-size: 19px;
+}
+
+html, body {
+	margin: auto;
+	background: #fefefe;
+}
+body {
+	font-family: "Vollkorn", Palatino, Times;
+	color: #333;
+	line-height: 1.4;
+	text-align: justify;
+}
+
+#write {
+	max-width: 960px;
+	margin: 0 auto;
+	margin-bottom: 2em;
+	line-height: 1.53;
+	padding-top: 40px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1100px;
+	}
+}
+
+/* Typography
+-------------------------------------------------------- */
+
+#write>h1:first-child,
+h1 {
+	margin-top: 1.6em;
+	font-weight: normal;
+}
+
+h1 {
+	font-size:3em;
+}
+
+h2 {
+	margin-top:2em;
+	font-weight: normal;
+}
+
+h3 {
+	font-weight: normal;
+	font-style: italic;
+	margin-top: 3em;
+}
+
+h1, 
+h2, 
+h3{
+	text-align: center;
+}
+
+h2:after{
+	border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    height: 1px;
+}
+
+h1+h2, h2+h3 {
+	margin-top: 0.83em;
+}
+
+p,
+.mathjax-block {
+	margin-top: 0;
+	-webkit-hypens: auto;
+	-moz-hypens: auto;
+	hyphens: auto;
+}
+ul {
+	list-style: square;
+	padding-left: 1.2em;
+}
+ol {
+	padding-left: 1.2em;
+}
+blockquote {
+	margin-left: 1em;
+	padding-left: 1em;
+	border-left: 1px solid #ddd;
+}
+code,
+pre {
+	font-family: "Consolas", "Menlo", "Monaco", monospace, serif;
+	font-size: .9em;
+	background: white;
+}
+.md-fences{
+	margin-left: 1em;
+	padding-left: 1em;
+	border: 1px solid #ddd;
+	padding-bottom: 8px;
+	padding-top: 6px;
+	margin-bottom: 1.5em;
+}
+
+a {
+	color: #2484c1;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a img {
+	border: none;
+}
+h1 a,
+h1 a:hover {
+	color: #333;
+	text-decoration: none;
+}
+hr {
+	color: #ddd;
+	height: 1px;
+	margin: 2em 0;
+	border-top: solid 1px #ddd;
+	border-bottom: none;
+	border-left: 0;
+	border-right: 0;
+}
+.ty-table-edit {
+	background: #ededed;
+    padding-top: 4px;
+}
+table {
+	margin-bottom: 1.333333rem
+}
+table th,
+table td {
+	padding: 8px;
+	line-height: 1.333333rem;
+	vertical-align: top;
+	border-top: 1px solid #ddd
+}
+table th {
+	font-weight: bold
+}
+table thead th {
+	vertical-align: bottom
+}
+table caption+thead tr:first-child th,
+table caption+thead tr:first-child td,
+table colgroup+thead tr:first-child th,
+table colgroup+thead tr:first-child td,
+table thead:first-child tr:first-child th,
+table thead:first-child tr:first-child td {
+	border-top: 0
+}
+table tbody+tbody {
+	border-top: 2px solid #ddd
+}
+
+.task-list{
+	padding:0;
+}
+
+.md-task-list-item {
+	padding-left: 1.6rem;
+}
+
+.md-task-list-item > input:before {
+	content: '\221A';
+	display: inline-block;
+	width: 1.33333333rem;
+  	height: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	color: #ddd;
+	background-color: #fefefe;
+}
+
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before{
+	color: inherit;
+}
+.md-tag {
+	color: inherit;
+	font: inherit;
+}
+#write pre.md-meta-block {
+	min-height: 35px;
+	padding: 0.5em 1em;
+}
+#write pre.md-meta-block {
+	white-space: pre;
+	background: #f8f8f8;
+	border: 0px;
+	color: #999;
+	
+	width: 100vw;
+	max-width: calc(100% + 60px);
+	margin-left: -30px;
+	border-left: 30px #f8f8f8 solid;
+	border-right: 30px #f8f8f8 solid;
+
+	margin-bottom: 2em;
+	margin-top: -1.3333333333333rem;
+	padding-top: 26px;
+	padding-bottom: 10px;
+	line-height: 1.8em;
+	font-size: 0.9em;
+	font-size: 0.76em;
+	padding-left: 0;
+}
+.md-img-error.md-image>.md-meta{
+	vertical-align: bottom;
+}
+#write>h5.md-focus:before {
+	top: 2px;
+}
+
+.md-toc {
+	margin-top: 40px;
+}
+
+.md-toc-content {
+	padding-bottom: 20px;
+}
+
+.outline-expander:before {
+	color: inherit;
+	font-size: 14px;
+	top: auto;
+	content: "\f0da";
+	font-family: FontAwesome;
+}
+
+.outline-expander:hover:before,
+.outline-item-open>.outline-item>.outline-expander:before {
+  	content: "\f0d7";
+}
+
+/** source code mode */
+#typora-source {
+	font-family: Courier, monospace;
+    color: #6A6A6A;
+}
+
+.html-for-mac #typora-sidebar {
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.cm-s-typora-default .cm-header, 
+.cm-s-typora-default .cm-property,
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor {
+	color: #428bca;
+}
+
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number {
+	color: #777777;
+}
+
+.typora-node .file-list-item-parent-loc, 
+.typora-node .file-list-item-time, 
+.typora-node .file-list-item-summary {
+	font-family: arial, sans-serif;
+}
+
+.md-task-list-item>input {
+    margin-left: -1.3em;
+    margin-top: calc(1rem - 12px);
+}
+
+.md-mathjax-midline {
+	background: #fafafa;
+}
+
+.md-fences .code-tooltip {
+	bottom: -2em !important;
+}
+
+.dropdown-menu .divider {
+	border-color: #e5e5e5;
+}
+
+
+</style>
+</head>
+<body class='typora-export os-windows'>
+<div id='write'  class=''><h1><a name="games-for-life" class="md-header-anchor"></a><span>Games for Life</span></h1><h2><a name="a-place-for-mehttpsryanchangonline-to-share-and-store-all-of-my-favorite-games-that-ive-learned-and-played-in-my-life" class="md-header-anchor"></a><span>A place for </span><a href='https://ryanchang.online'><span>me</span></a><span> to share and store all of my favorite games that I&#39;ve learned and played in my life.</span></h2><p><span>(Add pictures for each games and links of play?)</span></p><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n2"><a class="md-toc-inner" href="#games-for-life">Games for Life</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n4"><a class="md-toc-inner" href="#a-place-for-mehttpsryanchangonline-to-share-and-store-all-of-my-favorite-games-that-ive-learned-and-played-in-my-life">A place for me to share and store all of my favorite games that I've learned and played in my life.</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n7"><a class="md-toc-inner" href="#card-games">Card Games</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n10"><a class="md-toc-inner" href="#magic-the-gathering">Magic The Gathering </a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n70"><a class="md-toc-inner" href="#texas-holdem">Texas Hold'em</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n80"><a class="md-toc-inner" href="#big-two-大老二">Big Two (大老二)</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n93"><a class="md-toc-inner" href="#spoons">Spoons</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n101"><a class="md-toc-inner" href="#kemps">Kemps</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n108"><a class="md-toc-inner" href="#board-games">Board Games</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n111"><a class="md-toc-inner" href="#coup">Coup </a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n137"><a class="md-toc-inner" href="#avalon">Avalon</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n437"><a class="md-toc-inner" href="#how-many-players-are-needed">How Many Players Are Needed?</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n405"><a class="md-toc-inner" href="#instructions">Instructions</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n138"><a class="md-toc-inner" href="#code-names">Code Names</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n585"><a class="md-toc-inner" href="#instructions-n585">Instructions</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n139"><a class="md-toc-inner" href="#red-flags">Red Flags</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n140"><a class="md-toc-inner" href="#computer-games">Computer Games</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n143"><a class="md-toc-inner" href="#jackbox">JackBox </a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n144"><a class="md-toc-inner" href="#pummel-party">Pummel Party</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n145"><a class="md-toc-inner" href="#league-of-legends">League of Legends</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n146"><a class="md-toc-inner" href="#hearthstone">Hearthstone</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n147"><a class="md-toc-inner" href="#sport-games">Sport Games</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n151"><a class="md-toc-inner" href="#spike-ball">Spike Ball</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n152"><a class="md-toc-inner" href="#around-the-world">Around the World</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n153"><a class="md-toc-inner" href="#dont-go-hands-way">Don't go hands way</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n154"><a class="md-toc-inner" href="#cops-and-robbers">Cops and Robbers</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n155"><a class="md-toc-inner" href="#basement-sneak-up">Basement sneak up</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n156"><a class="md-toc-inner" href="#booties-up">Booties up</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n157"><a class="md-toc-inner" href="#44-3-point-shooting-game">44 (3 point shooting game)</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n158"><a class="md-toc-inner" href="#drinking-games">Drinking Games</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n161"><a class="md-toc-inner" href="#rage-cage">Rage Cage</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n162"><a class="md-toc-inner" href="#kings-cup">Kings Cup</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n163"><a class="md-toc-inner" href="#superlatives-drinking-pointing-game">Superlatives Drinking Pointing game</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n164"><a class="md-toc-inner" href="#pop-culture-draft-anime-apps-songs">Pop Culture draft (anime, apps, songs)</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n165"><a class="md-toc-inner" href="#nintendo-switch-games">Nintendo Switch Games<span>	</span></a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n166"><a class="md-toc-inner" href="#my-games">My Games</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n168"><a class="md-toc-inner" href="#3d-graph">3D graph</a></span></p></div><h1><a name="card-games" class="md-header-anchor"></a><span>Card Games</span></h1><hr /><p>&nbsp;</p><h2><a name="magic-the-gathering" class="md-header-anchor"></a><span>Magic The Gathering </span></h2><p><img src="https://media.wizards.com/2019/images/daily/mechanics_badges.png" alt="MTG Gameplay" title="Optional title" style="zoom:60%;" /></p><p><strong><span>Intro</span></strong><span> : </span><a href='https://www.youtube.com/watch?v=glYQ8x8e09Y'><span>🎦</span></a><span> Magic: The Gathering is a collectable card game. It can be played in several different formats, but in the most common, two players create decks out of the cards they own and play against each other.</span></p><p><strong><span>Numer of players </span></strong><span>: 2 + </span></p><p><strong><span>Duration</span></strong><span> : 30min + </span></p><p><strong><span>Instructions</span></strong><span> : Generally, the cards in a deck are either lands or spells. Lands provide the energy needed to cast spells, and spells usually do one of the following:</span></p><ul><li><span>Summon a creature that can fight for you or an artifact that you can use. (</span><strong><span>Creatures</span></strong><span> and </span><strong><span>Artifacts</span></strong><span>)</span></li><li><span>Create a lasting effect that affects the game as a whole or one or more cards in play. (</span><strong><span>Enchantments</span></strong><span>)</span></li><li><span>Create an instantaneous effect that affects one or more cards in play or an effect that lasts a single turn. (</span><strong><span>Sorceries</span></strong><span> and </span><strong><span>Instants</span></strong><span>)</span></li><li><span>Summon a sort of &quot;teammate&quot; that has its own abilities. (</span><strong><span>Planeswalkers</span></strong><span>)</span></li></ul><p><span>The primary goal is to run your opponent out of life points by attacking him with creatures or damaging him directly with spells. There are other ways to win, such as running your opponent out of cards in his deck.</span></p><p><span>The gameplay is complex. The players take turns, but many types of spells can be cast on an opponent&#39;s turn, or in response to a spell that they are trying to cast. A critical play by one player may be countered by the other, and that counter itself countered by the first. There are many thousands of cards out there, and you are not expected to know about them all. The Comprehensive Rules (</span><em><span>not</span></em><span> including the text of cards) are nearly two hundred pages, although a lot of that consists of old mechanics that are rarely used or highly-specified details that are rarely relevant. The learning curve is pretty steep, but a few games suffice to learn the basic rules. The complexity is more similar to Dungeons and Dragons than to most card games.</span></p><p><span>A key feature of M:tG is the concept of </span><strong><span>color</span></strong><span>. There are five colors: Red, Green, White, Blue, Black. Each is &quot;allied&quot; to two others and &quot;opposed&quot; to the two others. Most spells require mana of a certain color to cast, which is produced by different types of land cards. Each color has distinct strengths and weaknesses – for example, blue has the best counterspells, but it&#39;s not very good at simply hitting things. A given deck will usually use from one to three colors of card, although in some situations decks with four or five colors can work.</span></p><p><span>In addition, it is often considered that there are three general archetypes of deck (with a </span><em><span>lot</span></em><span> of variation within each category):</span></p><ul><li><strong><span>Aggro</span></strong><span> decks focus on dealing damage ASAP to win ASAP. They usually have cheap creatures (&quot;weenies&quot;) that can be used right away and &quot;buff&quot;-type spells to eke out a few more points of damage. They usually win fast or not at all, because they often can&#39;t stand up to the more powerful creatures and spells that are played later in the game.</span></li><li><strong><span>Control</span></strong><span> decks focus on preventing the opponent from acting until the player is ready to win with powerful spells or abilities. They run a lot of counterspells, destruction spells, and things that make action more expensive for the opponent, along with a few creatures strong on defense and disruption. They usually win by using cheap defenses against expensive attacks until they are ready to overwhelm the opponent with their accumulated strength, and lose if they just can&#39;t stay ahead of the enemy&#39;s attacks.</span></li><li><strong><span>Combo</span></strong><span> decks rely on a few combinations of cards that can lead to a near-instant victory. There </span><em><span>are</span></em><span> infinite combos in M:tG, but they&#39;re designed to be difficult or resource-intensive to pull off. A combo deck will usually run (in addition to the all-important combo pieces) &quot;tutor&quot; cards that let them search their deck, protection cards to guard the combo pieces, and just enough stall cards to prevent a quick defeat. A combo deck wins when it gets its combo in place before losing, and loses if it can&#39;t get the combo out in time or can&#39;t protect it long enough to use it.</span></li><li><strong><span>Midrange</span></strong><span> decks are a common intermediate archetype between Aggro and Control. Midrange tries to beat down the opponent with damage from powerful creatures (colloquially, &quot;fatties&quot;) rather than with cheap ones (&quot;weenies&quot;). These decks have to run enough control to stay alive until the big hitters come out. They win when they get the hitters out early enough to do lethal damage, and lose when they can&#39;t get the big guys out at all (being out-controlled) or when they just take too much of a beating too early (being out-aggro&#39;d).</span></li></ul><hr /><p><span>Many different kinds of people play M:tG. There are professional players who win large sums at tournaments, groups of friends who play casually on the weekends, and everything in between. If you&#39;re playing competitively, it can be absurdly expensive, as you cannot compromise on getting the perfect cards for your deck, but if you and your opponents are playing casually, it&#39;s a lot cheaper.</span></p><p><span>The most common formats are as follows. Two-player games are the norm for tournaments, but casual matches are often multiplayer.</span></p><p><strong><span>Constructed</span></strong><span> formats call for pre-constructed decks built from each player&#39;s personal collection:</span></p><ul><li><strong><span>Standard</span></strong><span>: Decks are made of cards printed in about the last 18 months.</span></li><li><strong><span>Modern</span></strong><span>: Decks are made of cards printed since about 2003 (minus a ban list).</span></li><li><strong><span>Legacy</span></strong><span>: Decks are made of </span><em><span>any</span></em><span> cards (minus a ban list).</span></li><li><strong><span>Vintage</span></strong><span>: Decks are made of </span><em><span>any</span></em><span> cards (minus a </span><em><span>very small</span></em><span> ban list).</span></li><li><strong><span>Commander</span></strong><span> (or &quot;EDH&quot;): Decks are made of </span><em><span>any</span></em><span> cards (minus a ban list), but limited to one of each card. One creature card is designated as your &quot;commander&quot; and is nearly always available for summoning. A popular multiplayer format.</span></li></ul><p><strong><span>Limited</span></strong><span> formats feature decks made on the spot from a limited pool of cards:</span></p><ul><li><strong><span>Sealed</span></strong><span>: Each player opens several randomized booster packs and makes a deck from the contents.</span></li><li><strong><span>Draft</span></strong><span>: A group of players open many packs and use a system to pick their cards from the contents, then build a deck from what they have.</span></li></ul><p><span>These formats cost money each time to play, because you need to buy booster packs. However, you can play them without having any of your own cards beforehand. Limited play can be a good way to pick up more cards. A relatively new casual format is </span><strong><span>Cube</span></strong><span>, in which you and your group put together a large pile of cards beforehand and use them in place of booster packs. This eliminates the recurring expense, although you need to have enough cards beforehand.</span></p><p><span>There are others formats, including Conspiracy, Planechase, Pauper (use no rare cards). Two-Headed Giant (play with a partner), and many more. Formats that allow older cards tend to be more expensive, because the cards have been out of print for a long time. Commander is a bit cheaper than other formats that allow old cards, because you only can have one of each card (other formats usually allow up to four of each card).</span></p><p><span>I play Commander with my D&amp;D group. None of us puts that much money into it, and we try to keep it more fun than competitive. Some of the players also play in local mini-tournaments on Friday nights (&quot;Friday Night Magic&quot;), usually breaking about even.</span></p><hr /><p><span>So, where does one get cards? Most cards come from randomized booster packs with 15 cards each. Cards from a given set are designated either common, uncommon, rare, or &quot;mythic rare&quot;. You can buy booster packs for around $3.50 USD from retailers, or you can buy them as part of a limited tournament.</span></p><p><span>There are also pre-made decks that you can buy directly from Wizards of the Coast. Each one has a theme and cards intended to work together. You won&#39;t win any tournaments with a pre-made deck, but it can be a good starting point. In addition, there are a couple of products intended for beginners, such as the &quot;Deck-builder&#39;s toolkit&quot; with a semi-randomized selection of cards and a big stack of common lands. (Common lands are dirt cheap, but it would take quite a few booster packs to get enough to build a deck.)</span></p><p><span>Most M:tG players trade cards with their friends or at events to get the specific cards they need. In addition, there is a thriving market of single cards at game stores and online.</span></p><p><span>Some very, very old cards are very, very rare and expensive. A single </span><a href='http://magiccards.info/vma/en/4.html'><span>Black Lotus</span></a><span> can cost many thousands of dollars. But these cards are not legal in most formats, and most players will never have seen one in person. When playing casually, your group may allow the use of &quot;proxy&quot; cards to substitute for the pricey ones. </span></p><p><span>-From </span><a href='https://www.reddit.com/r/explainlikeimfive/comments/2mw7fq/eli5_magic_the_gathering/'><span>Magic explained like I&#39;m 5</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><hr /><h2><a name="texas-holdem" class="md-header-anchor"></a><span>Texas Hold&#39;em</span></h2><p><strong><span>Intro</span></strong><span> : Go to a casino dude.</span></p><p><strong><span>Numer of players </span></strong><span>: 4 + </span></p><p><strong><span>Duration</span></strong><span> : 30 min + </span></p><p><strong><span>Instructions</span></strong><span> : Each player at the table gets dealt two cards with the two people to the left of the dealer forced to make a minimum bet called a &quot;Blind.&quot; There is then a round of betting starting from their left. You can either Fold your cards (discard them without contributing any more money), Call (put in an amount equal to the previous bet), or Raise (bet an amount of money in excess of the previous bet).</span></p><p><span>After this round of betting, the dealer then puts three cards face up in the center of the table. This is called the &quot;Flop.&quot; This and all ensuing cards are called &quot;The Board.&quot; Everybody at the table uses the same board to try to make their best 5 card poker hand. After the flop, another round of betting takes place in a similar fashion. A 4th card is put on the table face up, this is called the &quot;Turn.&quot; Another round of betting. The 5th an final card is placed face up on the table by the dealer. Another round of betting ensues.</span></p><p><span>After the final round of betting, the best 5 card poker hand will win the pot. Hands are </span><a href='https://www.cardschat.com/poker-hands/'><span>ranked traditionally</span></a><span>. You can use as many or as few cards from the flop to make your 5-card hand as you want. In the event of a tie, the pot is split between the tied participants. After the hand, the deal is passed to the left and you do it again ad infinitum.</span></p><p><span>From </span><a href='https://www.reddit.com/r/explainlikeimfive/comments/qcelw/eli5_texas_hold_em/'><span>T&#39;Hold&#39;em explained like I&#39;m 5</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><hr /><h2><a name="big-two-大老二" class="md-header-anchor"></a><span>Big Two (大老二)</span></h2><p><strong><span>Intro</span></strong><span> : Big two is a </span><a href='https://en.wikipedia.org/wiki/Card_game'><span>card game</span></a><span> of Chinese origin. It is similar to the games of </span><a href='https://en.wikipedia.org/wiki/President_(game)'><span>president</span></a><span>, </span><a href='https://en.wikipedia.org/wiki/Crazy_eights'><span>crazy eights</span></a><span>, </span><a href='https://en.wikipedia.org/wiki/Cheat_(game)'><span>cheat</span></a><span>, </span><a href='https://en.wikipedia.org/wiki/Winner_(card_game)'><span>winner</span></a><span>, and other </span><a href='https://en.wikipedia.org/wiki/Card_game#Shedding_games'><span>shedding</span></a><span> games.</span></p><p><strong><span>Numer of players </span></strong><span>: 4 + </span></p><p><strong><span>Duration</span></strong><span> : 20 min + </span></p><p><strong><span>Instructions</span></strong><span> : The dealer (who may be chosen by </span><a href='https://en.wikipedia.org/wiki/Cut_(cards)'><span>cutting</span></a><span> the cards, as usual) shuffles the deck to begin with and begins dealing out the cards singly, starting with the person of his right, in a counter-clockwise manner around the table. The cards are dealt out among the players as far as they can go while retaining an equal number of cards for each player. Leftover cards (not possible if there are 4 players) are then given to the player holding the 3♦. If this card is in the kitty, then the holder of the next lowest card adds them to his pile (var. 5). The </span><a href='https://en.wikipedia.org/wiki/Joker_(card)'><span>Joker cards</span></a><span> are not used under normal rules and is taken out before dealing.</span></p><p><span>At the beginning of each game, the player with the 3♦ (var. 6 and 9) starts by either playing it singly or as part of a combination, leading to the first trick. Play proceeds counter-clockwise, with normal climbing-game rules applying: each player must play a higher card or combination than the one before, with the same number of cards. Players may also pass, thus declaring that s/he does not want to play (or does not hold the necessary cards to make a play possible). A pass does not hinder any further play in the game, each being independent, referred to as jumping-back. (var. 14).</span></p><p><span>When all but one of the players have passed in succession the trick is over (some variations have when 1 player has passed the trick is over), and the cards are gathered up and a new trick is started with all players, initiated by the last player to play. When a player plays the 2♠ either as a single or as part of a pair of 2s, it is often customary for that player to start the next trick immediately by leading a new card or combination, since the 2♠ cannot be beaten whether as a single or as part of a pair of 2s, and the passes are mere formalities.</span></p><p><span>It is often courteous for a player to warn others when he/she is one playing combination away from winning. The goal is, then, for the other players to play (and get rid of) as many cards as possible while avoiding the combination that would allow the calling player to win the game. For example, if the said player has one last single card, the other players would play doubles or other combinations to force him/her to pass.</span></p><p><span>The game ends when one player runs out of cards. Refer to scoring section.</span></p><p><span>In most popular variations, ending with a single or double two is not allowed.</span></p><p><span>-From </span><a href='[https://en.wikipedia.org/wiki/Big_two#:~:text=Cards%20may%20be%20played%20as,is%202%20instead%20of%20A.](https://en.wikipedia.org/wiki/Big_two#:~:text=Cards may be played as,is 2 instead of A.)'><span>Big Two Wikipedia</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><hr /><h2><a name="spoons" class="md-header-anchor"></a><span>Spoons</span></h2><p><strong><span>Intro</span></strong><span> : </span><a href='https://www.youtube.com/watch?v=y6psBv03i-c'><span>🎦</span></a><span> Reactionary card game based on getting 4 of the same numbered card.  </span></p><p><strong><span>Numer of players </span></strong><span>: 4 + </span></p><p><strong><span>Duration</span></strong><span> : 20 min + </span></p><p><strong><span>Instructions</span></strong><span> : Everyone starts with 4 cards and the goal is to get 4 of a kind. one person starts with the deck and draws cards continuously, and if they want the card they will trade it out for one in their hand. if not, they pass it to the person on their left and that person then decides if they want it, until the card makes its way to the last person, who will keep it or put it in a discard pile. once someone has 4 of a kind they grab a spoon, and then everyone else tries to grab a spoon. there&#39;s one less spoon than people playing and the person without the spoon loses.</span></p><p><span>-From </span><a href='https://www.reddit.com/r/videos/comments/5arc20/my_gfs_family_takes_their_game_of_spoons_very/'><span>Reddit</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><hr /><h2><a name="kemps" class="md-header-anchor"></a><span>Kemps</span></h2><p><strong><span>Intro</span></strong><span> : </span><a href='https://www.youtube.com/watch?v=d_L6V4sy0o0'><span>🎦</span></a><span> Co-op card game based on signaling to your partner when you have 4 of the same numbered card. </span></p><p><strong><span>Numer of players </span></strong><span>: 6 + </span></p><p><strong><span>Duration</span></strong><span> : 20 min + </span></p><p><strong><span>Instructions</span></strong><span> : You play in pairs of two, and the goal is for at least one teammate to acquire 4 of a kind. Once one person has 4 of a kind, they have to signal to their partner that they&#39;ve got it, at which time the partner shouts &quot;KEMPS,&quot; securing your team the win for the round. The kicker is that any of the other teams can spot and intercept your signal (done by shouting &quot;KEMPS&quot;), upon which the incepting team wins the round. If you&#39;re wrong, however, the team you try and intercept wins the round.</span></p><p><span>-From </span><a href='https://www.reddit.com/r/FiftyTwoCards/comments/6zs3df/kemps_a_game_probably_no_one_else_in_your_group/'><span>Reddit</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><h1><a name="board-games" class="md-header-anchor"></a><span>Board Games</span></h1><hr /><p>&nbsp;</p><h2><a name="coup" class="md-header-anchor"></a><span>Coup </span></h2><p><img src="https://vignette.wikia.nocookie.net/board-games-galore/images/0/06/Coupbox.jpg/revision/latest?cb=20160713201820" alt="Alt text" style="zoom: 50%;" /></p><p><strong><span>Intro</span></strong><span> : </span><a href='https://www.youtube.com/watch?v=y6psBv03i-c'><span>🎦</span></a><span> Bambozzle your opponets by lying about your role.</span></p><p><strong><span>Numer of players </span></strong><span>: 3-6 </span></p><p><strong><span>Duration</span></strong><span> : 30 min + </span></p><p><strong><span>Instructions</span></strong><span> : </span></p><p><strong><span>Set-up</span></strong><span>: Shuffle the cards and deal two to each player. Players should look at their cards but keep them hidden from everyone else. Each player takes two coind from the bank as their starting wealth. Cards: There are five different characters in the influence deck (three copies of each character). Each of the five characters has one or more special abilities. The Duke (takes taxes and Blocks Foreign Aid), the Assassin (forces one player to give up an Influence card), the Captain (steals two coins from another player, Blocks stealing attempts), Ambassador (lets you swap or appear to swap your Influence cards with new ones from the deck, Blocks stealing attempts), the Countessa (Blocks assassination attempts).</span></p><p><strong><span>Characters</span></strong><span>: Three copies of five different characters, each with a unique set of powers:</span></p><ul><li><span>Duke: Take three coins from the treasury. Block someone from taking foreign aid.</span></li><li><span>Assassin: Pay three coins and try to assassinate another player&#39;s character.</span></li><li><span>Contessa: Block an assassination attempt against yourself.</span></li><li><span>Captain: Take two coins from another player, or block someone from stealing coins from you.</span></li><li><span>Ambassador: Draw two character cards from the Court (the deck), choose which (if any) to exchange with your face-down characters, then return two. Block someone from stealing coins from you.</span></li></ul><p><strong><span>Play</span></strong><span> : Starting with the player to the left of the dealer and going clockwise, players take turns performing one of the available actions. 1. Income: Take one coin from the bank. This cannot be Challenged or Blocked. 2. Foreign Aid: Take two coins from the bank. This cannot be Challenged but it can be Blocked by the Duke. 3. Coup: Costs seven coins. Cause a player to give up an Influence card. Cannot be Challenged or Blocked. If you start your turn with 10+ coins, you must take this action. 4. Taxes (the Duke): Take three coins from the bank. Can be Challenged. 5. Assassinate (the Assassin): Costs three coins. Force one player to give up an Influence card of their choice. Can be Challenged. Can be Blocked by the Contessa. 6. Steal (the Captain): Take two coins from another player. Can be Challenged. Can be Blocked by another Captain or an Ambassador. 7. Swap Influence (the Ambassador): Draw two Influence cards from the deck, look at them and mix them with your current Influence card(s). Place two cards back in the deck and shuffle the deck. Can be Challenged. Cannot be Blocked.</span></p><p><strong><span>Blocking</span></strong><span>: If another player takes an action that can be Blocked, any other player may Block it by claiming to have the proper character on one of their Influence cards. The acting player cannpt perform the action and takes no other action this turn. The acting player MAY choose to Challenge the Blocking player. If they win the Challenge, the action goes through as normal. </span></p><p><strong><span>Challenge</span></strong><span>: When the acting player declares their action, any other player may Challenge their right to take the action. They are saying “I don&#39;t believe you have the proper character to do that.” The acting player now must prove they have the power to take the action or lose the Challenge. If they have the right character, they reveal it and place the revealed card back in the deck. They then shuffle the deck and draw a new card. The Challenging player has lost the Callenge. If the do NOT have the proper character, they lose the Challenge. </span></p><p><strong><span>Losing a Challenge</span></strong><span>: Any player who loses a Challenge must turn one of their Influence cards face up for all to see. If that is their last Influence card, they are out of the game.</span></p><p><strong><span>Losing Influence</span></strong><span>: Any time a player loses an Influence card, THEY choose which of their cards to reveal.</span></p><p><span>-From </span><a href='https://upload.snakesandlattes.com/rules/c/CoupTheResistance.pdf'><span>Coup</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><h2><a name="avalon" class="md-header-anchor"></a><span>Avalon</span></h2><p><img src="https://www.ultraboardgames.com/img/slideshow/avalon.jpg" alt="Alt text" style="zoom: 50%;" /></p><p><strong><span>Intro</span></strong><span> : </span><a href='https://www.youtube.com/watch?v=JaNwTKixAc0&amp;ab_channel=DaleQuimpo'><span>🎦</span></a><span> A party game that challenges players to deduce one another&#39;s identities.</span></p><p><strong><span>Numer of players </span></strong><span>: 5+</span></p><p><strong><span>Duration</span></strong><span> : 20 min + </span></p><p><strong><span>Instructions</span></strong><span> : </span></p><h3><a name="how-many-players-are-needed" class="md-header-anchor"></a><span>How Many Players Are Needed?</span></h3><p><span>You&#39;ll need at least five participants to play Avalon. Before the game begins, each player will receive a card determining which side they&#39;re on, good or evil. Make sure to keep this card and knowledge to yourself. The chart below details how many characters will be good and how many evil based on the total number of players.</span></p><p><span>Some characters have special abilities, but for basic games, it&#39;s recommended for only Merlin on the good side and Assassin on the evil team to utilize their skills. We&#39;ll get to those soon. Most players need only know whether they&#39;re good or evil.</span></p><figure><table><thead><tr><th><span>Total Number of Players</span></th><th><span>5</span></th><th><span>6</span></th><th><span>7</span></th><th><span>8</span></th><th><span>9</span></th><th><span>10</span></th></tr></thead><tbody><tr><td><span>Good (Blue background)</span></td><td><span>3</span></td><td><span>4</span></td><td><span>4</span></td><td><span>5</span></td><td><span>6</span></td><td><span>6</span></td></tr><tr><td><span>Evil (Red background)</span></td><td><span>2</span></td><td><span>2</span></td><td><span>3</span></td><td><span>3</span></td><td><span>3</span></td><td><span>4</span></td></tr></tbody></table></figure><h3><a name="instructions" class="md-header-anchor"></a><span>Instructions</span></h3><p><span>Great! Everyone knows their own character. Players should sit in a circle so everyone can face each other. Then, one player (it doesn&#39;t matter who) will give out the following instructions in order. Be sure to pause for at least a few seconds between each statement.</span></p><ul><li><span>Everyone, extend your right arm into the circle and close your eyes.</span></li><li><span>Minions of Mordred (evil players) only, open your eyes so you may know each other.</span></li><li><span>Minions of Mordred, close your eyes.</span></li><li><span>Merlin, open your eyes.</span></li><li><span>Minions of Mordred, extend your right thumb into the air so Merlin will know you.</span></li><li><span>Minions of Mordred, lower your thumbs, and Merlin, close your eyes.</span></li><li><span>Everyone, open your eyes (and you can lower your arms now, of course).</span></li></ul><p><span>Essentially, what these instructions have done is let the evil players know who each other are without revealing themselves to the good players. Also, Merlin knows the identity of the evil characters, but they do not know who Merlin is. This is Merlin&#39;s special ability: he immediately discovers who secretly serves Mordred. However, Merlin must be careful with this knowledge: at the end of the game, if the evil team can guess which player is Merlin, they can steal the win. More on that later.</span></p><p><span>-</span><a href='https://hobbylark.com/card-games/How-to-Play-Avalon#:~:text=Avalon%20is%20a%20spin%2Doff,left%20out%20of%20the%20fun.'><span>Full Avalon Instructions</span></a></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><h2><a name="code-names" class="md-header-anchor"></a><span>Code Names</span></h2><p><img src="https://vignette.wikia.nocookie.net/board-games-galore/images/7/77/Codenamebox.jpg/revision/latest/top-crop/width/360/height/450?cb=20160717211246" alt="Alt text" style="zoom: 50%;" /></p><p><strong><span>Intro</span></strong><span> : </span><a href=''><span>🎦</span></a><span> Use a single word to signal multiple other words while avoiding certain words</span></p><p><strong><span>Numer of players </span></strong><span>: 4+</span></p><p><strong><span>Duration</span></strong><span> : 20 min + </span></p><h3><a name="instructions-n585" class="md-header-anchor"></a><span>Instructions</span></h3><p><span>It&#39;s a party game. It&#39;s not a deeply concentrated experience, no matter how much AP you might get staring at those 25 words. What makes the game fun is taunting the spymasters while they are trying to find ANY WAY they can give a single clue to get you to guess &quot;avocado&quot; and &quot;Germany&quot; in the next hint. What makes the game fun is giving &quot;advice&quot; to the other team while they are trying to guess their words. What makes the game fun is when a spymaster gives a clue, and then IMMEDIATELY realizes that it could be interpreted as the assassin word. What makes the game fun is screaming WHY DIDN&#39;T YOU GET THAT A SPHINX WAS ONE OF THE ANIMALS IN MY ANIMAL CLUE at your friends once the game is over.</span></p><p><span>If you are spending a long time waiting without interacting with your fellow players, you&#39;re doing it wrong.</span></p><p><span>Why is Codenames popular? It&#39;s a deduction game that can be played by people who are bad at deduction. It&#39;s a hidden information game that can be taught in five minutes. It&#39;s a word game for people who suck at word games. It&#39;s a party game that is pretty much an instant-laugh-generator, without needing to be crass or require creativity from the players to make it work.</span></p><p><span>Codenames is a game that can be played side-by-side by people who are awesome at games, and people who absolutely suck at games, and everyone can still have fun.</span></p><p><span>In fact, it&#39;s probably the most fun when at least some of the players are really, really bad at it.</span></p><p><strong><span>Learn more</span></strong><span> insert link here</span></p><h2><a name="red-flags" class="md-header-anchor"></a><span>Red Flags</span></h2><p><img src="https://www.bigw.com.au/medias/sys_master/images/images/h31/hda/13359499673630.jpg" alt="Alt text" style="zoom: 50%;" /></p><p><a href='https://redflagsio.herokuapp.com/' target='_blank' class='url'>https://redflagsio.herokuapp.com/</a></p><h1><a name="computer-games" class="md-header-anchor"></a><span>Computer Games</span></h1><hr /><p>&nbsp;</p><h2><a name="jackbox" class="md-header-anchor"></a><span>JackBox </span></h2><h2><a name="pummel-party" class="md-header-anchor"></a><span>Pummel Party</span></h2><h2><a name="league-of-legends" class="md-header-anchor"></a><span>League of Legends</span></h2><h2><a name="hearthstone" class="md-header-anchor"></a><span>Hearthstone</span></h2><h1><a name="sport-games" class="md-header-anchor"></a><span>Sport Games</span></h1><p>&nbsp;</p><hr /><p>&nbsp;</p><h2><a name="spike-ball" class="md-header-anchor"></a><span>Spike Ball</span></h2><h2><a name="around-the-world" class="md-header-anchor"></a><span>Around the World</span></h2><h2><a name="dont-go-hands-way" class="md-header-anchor"></a><span>Don&#39;t go hands way</span></h2><h2><a name="cops-and-robbers" class="md-header-anchor"></a><span>Cops and Robbers</span></h2><h2><a name="basement-sneak-up" class="md-header-anchor"></a><span>Basement sneak up</span></h2><h2><a name="booties-up" class="md-header-anchor"></a><span>Booties up</span></h2><h2><a name="44-3-point-shooting-game" class="md-header-anchor"></a><span>44 (3 point shooting game)</span></h2><h1><a name="drinking-games" class="md-header-anchor"></a><span>Drinking Games</span></h1><hr /><p>&nbsp;</p><h2><a name="rage-cage" class="md-header-anchor"></a><span>Rage Cage</span></h2><h2><a name="kings-cup" class="md-header-anchor"></a><span>Kings Cup</span></h2><h2><a name="superlatives-drinking-pointing-game" class="md-header-anchor"></a><span>Superlatives Drinking Pointing game</span></h2><h2><a name="pop-culture-draft-anime-apps-songs" class="md-header-anchor"></a><span>Pop Culture draft (anime, apps, songs)</span></h2><h1><a name="nintendo-switch-games" class="md-header-anchor"></a><span>Nintendo Switch Games</span><span>	</span></h1><h1><a name="my-games" class="md-header-anchor"></a><span>My Games</span></h1><p><span>Picture of my games labeled.</span></p><h1><a name="3d-graph" class="md-header-anchor"></a><span>3D graph</span></h1><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></div>
+</body>
+</html>
