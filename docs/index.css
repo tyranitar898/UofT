@@ -1,5 +1,11 @@
 body {
   font-family: "Roboto Mono", monospace, "Times";
+  margin: 0;
+  
+}
+p {
+  margin-block-start: 0.2em;
+  margin-block-end: 0.2em;
 }
 #mainHeader {
   margin-top: 2%;
@@ -113,24 +119,18 @@ h1.secondaryHeader {
 .white {
   color: grey;
 }
-.typewriter {
-  /*
-  position: -webkit-sticky;
-  position: sticky;
-  top:0;*/
-}
+
 .typewriter p {
-  word-break: break-all;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  font-size: 0.75em;
-  border-right: 0.15em solid grey; /* The typwriter cursor */
+  
   white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 0.15em; /* Adjust as needed */
-  animation: typing 5s steps(50, end), blink-caret 0.75s step-end infinite;
+  letter-spacing: .15em; /* Adjust as needed */
+  /* animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite; */
 }
 
-/* The typing effect */
+/* The typing effect
 @keyframes typing {
   from {
     width: 0;
@@ -149,7 +149,7 @@ h1.secondaryHeader {
   50% {
     border-color: grey;
   }
-}
+} */
 
 /* width */
 ::-webkit-scrollbar {
